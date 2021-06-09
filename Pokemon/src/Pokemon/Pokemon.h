@@ -1,6 +1,6 @@
 #pragma once
 #include "../Sprite.h"
-#include "Move.h"
+//#include "Move.h"
 #include <vector>
 #include <string>
 #include <map>
@@ -23,19 +23,19 @@ public:
 	~Pokemon();
 
 public:
-	virtual void OnPokemonCreate() = 0;
+	//virtual void OnPokemonCreate() = 0;
 	int GetLevel();
 	void SetLevel(int value);
 	std::string GetName();
 
 	bool LevelUp();
 
-protected:
 	Stats stats;
 	Type type;
 	Type type2;
+protected:
 	std::map<int, Move> learnableMoves;
-	Move moveset[3];
+	//Move moveset[3];
 private:
 	int level;
 	int experience;

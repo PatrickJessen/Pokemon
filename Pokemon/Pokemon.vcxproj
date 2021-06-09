@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Pokemon\Move.cpp" />
     <ClCompile Include="src\Pokemon\Pokemon.cpp" />
     <ClCompile Include="src\Sprite.cpp" />
     <ClCompile Include="src\Kanto\PalletTown\PalletTown.cpp" />
