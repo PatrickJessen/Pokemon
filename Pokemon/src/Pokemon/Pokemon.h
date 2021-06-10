@@ -1,9 +1,10 @@
 #pragma once
 #include "../Sprite.h"
-//#include "Move.h"
+#include "Moves/Move.h"
 #include <vector>
 #include <string>
 #include <map>
+#include "../Window.h"
 
 struct Stats
 {
@@ -18,28 +19,32 @@ struct Stats
 class Pokemon
 {
 public:
-	Pokemon(Sprite* sprite, std::string name, Stats stats, Type type, int level);
-	Pokemon(Sprite* sprite, std::string name, Stats stats, Type type, Type type2, int level);
+	Pokemon(Window* window, const char* spritePath, std::string name, Type type, int level);
+	Pokemon(Window* window, const char* spritePath, std::string name, Type type, Type type2, int level);
 	~Pokemon();
 
 public:
+	void InitStats(int hp, int attack, int defense, float spAtk, float spDef, int speed);
 	//virtual void OnPokemonCreate() = 0;
 	int GetLevel();
 	void SetLevel(int value);
 	std::string GetName();
 
 	bool LevelUp();
+	void DrawPokemon();
+	void OnUpdate();
 
 	Stats stats;
 	Type type;
 	Type type2;
-protected:
 	std::map<int, Move> learnableMoves;
-	//Move moveset[3];
+	SDL_Rect pokeRect;
+	Sprite* sprite;
+protected:
+	Move moveset[3];
 private:
 	int level;
 	int experience;
 	int requiredExp;
-	Sprite* sprite;
 	std::string name;
 };

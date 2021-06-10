@@ -33,7 +33,13 @@
     <ClCompile Include="src\Pokemon\Pokemon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Pokemon\Move.cpp">
+    <ClCompile Include="src\Pokemon\Moves\AttackType.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Level.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Pokemon\Moves\Move.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -59,7 +65,16 @@
     <ClInclude Include="src\Pokemon\Charmander.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Pokemon\Move.h">
+    <ClInclude Include="src\Pokemon\Moves\AttackMove.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Pokemon\Moves\AttackType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Pokemon\Moves\Type.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Pokemon\Moves\Move.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
