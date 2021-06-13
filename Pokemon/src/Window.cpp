@@ -36,6 +36,7 @@ Window::Window(const char* title, int xpos, int ypos, int width, int height, boo
 	{
 		isRunning = false;
 	}
+	Input.Update();
 }
 Window::~Window()
 {

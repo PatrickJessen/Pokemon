@@ -1,16 +1,8 @@
 #pragma once
 #include "Window.h"
 #include "Pokemon/Pokemon.h"
+#include "Trainer/Trainer.h"
 #include <fstream>
-
-enum class CollisionType
-{
-	Normal = 385,
-	Door = 391,
-	Water = 386,
-	ExitWater = 389,
-	NormalExit = 388
-};
 
 struct Tile
 {
@@ -23,8 +15,8 @@ struct Tile
 	//int depthCollision = 3;
 	//int waterCollision = 4;
 	//int exitMapCollision = 5;
-	if coltype = collisiontype:normal
-		bounce player back
+	/*if coltype = collisiontype:normal
+		bounce player back*/
 };
 
 class Level
@@ -36,9 +28,9 @@ public:
 
 public:
 	virtual void HandlePokeSpawns() = 0;
-	void InitMap();
-	void InitCollisionMap();
-	void LoadMap();
+	virtual void InitMap() = 0;
+	virtual void LoadMap() = 0;
+	void Update();
 	void CleanMap();
 
 	SDL_Texture* loadTexture();
@@ -47,11 +39,8 @@ public:
 
 	SDL_Texture* tex = nullptr;
 protected:
-	Tile* level = nullptr;
-	//Tile* colLevel = nullptr;
-	int width;
-	int height;
-	int tileSize;
+	int tileWidth;
+	int tileHeight;
 	int zoom;
 	int zoneLevel;
 	SDL_Rect srcRect;
@@ -62,7 +51,5 @@ protected:
 	std::map<int, std::vector<Pokemon*>> pokeSpawn;
 	const char* filePath;
 	const char* texturePath;
-
-	int tileCounterX = 43;
-	int tileCounterY = 8;
+	Trainer* trainer;
 };

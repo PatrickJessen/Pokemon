@@ -1,7 +1,4 @@
 #include "Level.h"
-#include "FileHandler/simple_file_handler.h"
-
-using namespace SimpleFileHandler;
 
 //Level::Level(Window* window, const char* filePath, const char* texturePath, int col, int row, int zoneLevel, int tileSize, int zoom)
 //	:window(window), filePath(filePath), texturePath(texturePath), col(row), zoneLevel(zoneLevel), tileSize(tileSize), zoom(zoom)
@@ -19,62 +16,10 @@ Level::~Level()
 {
 }
 
-void Level::InitMap()
+void Level::Update()
 {
-	if (level != nullptr)
-	{
-		delete level;
-	}
-	level = new Tile[height * width];
-
-	ReadFile inFile(filePath);
-
-	for (int y = 0; y < height; y++)
-		for (int x = 0; x < width; x++)
-		{
-			level[y * width + x] = inFile.ReadClass<Tile>();
-		}
-
-	inFile.Close();
-}
-
-void Level::InitCollisionMap()
-{
-	/*if (colLevel != nullptr)
-	{
-		delete colLevel;
-	}
-	colLevel = new Tile[height * width];
-
-	ReadFile inFile("Assets/Map/pt.map");
-
-	for (int y = 0; y < height; y++)
-		for (int x = 0; x < width; x++)
-		{
-			colLevel[y * width + x] = inFile.ReadClass<Tile>();
-		}
-
-	inFile.Close();*/
-}
-
-void Level::LoadMap()
-{
-	for (int y = 0; y < height; y++)
-		for (int x = 0; x < width; x++)
-		{
-			dstRect = { x * tileSize * zoom + moveMap.x, y * tileSize * zoom, tileSize * zoom + moveMap.y, tileSize * zoom };
-			srcRect = { level[y * width + x].textureX * tileSize, level[y * width + x].textureY * tileSize, tileSize, tileSize };
-			if (level[y * width + x].textureX == 157 || level[y * width + x].textureY == 157)
-			{
-				std::cout << "test\n";
-			}
-			SDL_RenderCopy(window->GetRender(), tex, &srcRect, &dstRect);
-		}
-}
-
-void Level::CleanMap()
-{
-	delete level;
+    LoadMap();
+    trainer->UpdateTrainer();
 }
 
 
