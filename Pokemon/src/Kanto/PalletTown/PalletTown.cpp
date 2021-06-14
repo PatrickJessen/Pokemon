@@ -1,18 +1,21 @@
 #include "PalletTown.h"
 
-PalletTown::PalletTown(Window* window, const char* filePath, const char* texturePath, int zoneLevel, int tileWidth, int tileHeight, int zoom)
+PalletTown::PalletTown(Window* window, const char* filePath, const char* colMap, const char* texturePath, int zoneLevel, int width, int height, int tileSize, int zoom)
 {
 	this->window = window;
 	this->filePath = filePath;
+	this->colMap = colMap;
 	this->texturePath = texturePath;
 	this->zoneLevel = zoneLevel;
-	this->tileWidth = tileWidth;
-	this->tileHeight = tileHeight;
+	this->width = width;
+	this->height = height;
+	this->tileSize = tileSize;
 	this->zoom = zoom;
 
 	trainer = new Trainer(window, "Ash", "Assets/Trainers/MainTrainer.png", 400, 300, 62, 62);
 	
 	InitMap();
+	//InitColMap();
 	HandlePokeSpawns();
 }
 
@@ -31,53 +34,46 @@ void PalletTown::HandlePokeSpawns()
 												  new Pokemon(window, "Assets/Pokemons/Squirtle.png", "Squirtle", Type::WATER, 5)});
 }
 
-void PalletTown::InitMap()
+//void PalletTown::InitMap()
+//{
+//	std::ifstream fs(filePath, std::ifstream::in);
+//
+//	for (int y = 0; y < height; y++)
+//		for (int x = 0; x < width; x++)
+//		{
+//			fs >> level[y][x];
+//		}
+//	fs.close();
+//}
+
+void PalletTown::InitColMap()
 {
-	std::ifstream fs(filePath, std::ifstream::in);
+	/*std::ifstream fs(colMap, std::ifstream::in);
 
 	for (int y = 0; y < height; y++)
 		for (int x = 0; x < width; x++)
 		{
 			fs >> level[y][x];
 		}
+	fs.close();*/
 }
 
-void PalletTown::LoadMap()
-{
-	int x, y;
-	level[x][y];
-	dstRect = { 0 + moveMap.x, 0 + moveMap.y, window->GetWidth() * zoom, window->GetHeight() * zoom };
-	SDL_RenderCopy(window->GetRender(), tex, NULL, &dstRect);
-	for (int y = 0; y < height; y++)
-		for (int x = 0; x < width; x++)
-		{
-			//level[y * width + x].textureX = y * width + x;
-			//level[y * width + x].textureY = y * width + x;
-			///*dstRect = { x * tileSize * zoom + moveMap.x, y * tileSize * zoom, tileSize * zoom + moveMap.y, tileSize * zoom };
-			//srcRect = { level[y * width + x].textureX * tileSize, level[y * width + x].textureY * tileSize, tileSize, tileSize };*/
-			//if (level[y * width + x].textureX == (int)CollisionType::Door || level[y * width + x].textureY == (int)CollisionType::Door)
-			//{
-			//	std::cout << "test\n";
-			//}
-			//SDL_RenderCopy(window->GetRender(), tex, &srcRect, &dstRect);
-			SDL_Rect test = { x * tileWidth * zoom, y * tileHeight * zoom, tileWidth * zoom, tileHeight * zoom };
-			SDL_SetRenderDrawColor(window->GetRender(), 0, 255, 255, 255);
-			//std::cout << level[y][x] << "\n";
-			if (level[y][x] == 385)
-			{
-				SDL_SetRenderDrawColor(window->GetRender(), 255, 0, 0, 255);
-				//SDL_RenderFillRect(window->GetRender(), &test);
-					//std::cout << "test\n";
-			}
-			SDL_RenderDrawRect(window->GetRender(), &test);
-		}
-
-	SDL_Rect test2 = { trainer->GetXPos() + trainer->GetWidth() / 2, trainer->GetYPos() + trainer->GetHeight() / 2, trainer->GetWidth() / 2, trainer->GetHeight() / 2 };
-	SDL_SetRenderDrawColor(window->GetRender(), 0, 255, 0, 255);
-	SDL_RenderFillRect(window->GetRender(), &test2);
-	std::cout << level[(trainer->GetYPos() + trainer->GetHeight() / 2) / tileHeight / zoom][(trainer->GetXPos() + trainer->GetWidth() / 2) / tileWidth / zoom] << "\n";
-	if (level[(trainer->GetYPos() + trainer->GetHeight() / 2) / tileHeight / zoom][(trainer->GetXPos() + trainer->GetWidth() / 2) / tileWidth / zoom] == (int)CollisionType::Door)
-	{
-		std::cout << "test\n";
-	}
-}
+//void PalletTown::LoadMap()
+//{
+//	for (int y = 0; y < height; y++)
+//		for (int x = 0; x < width; x++)
+//		{		
+//			dstRect = { x * tileSize * zoom + moveMap.x, y * tileSize * zoom + moveMap.y, tileSize * zoom, tileSize * zoom };
+//			srcRect = { level[y][x] * tileSize, x * tileSize, tileSize, tileSize };
+//			SDL_RenderCopy(window->GetRender(), tex, &srcRect, &dstRect);
+//		}
+//
+//	SDL_Rect test2 = { trainer->GetXPos() + trainer->GetWidth() / 2, trainer->GetYPos() + trainer->GetHeight() / 2, trainer->GetWidth() / 2, trainer->GetHeight() / 2 };
+//	SDL_SetRenderDrawColor(window->GetRender(), 0, 255, 0, 255);
+//	SDL_RenderFillRect(window->GetRender(), &test2);
+//	std::cout << level[(trainer->GetYPos() + trainer->GetHeight() / 2) / tileHeight / zoom][(trainer->GetXPos() + trainer->GetWidth() / 2) / tileWidth / zoom] << "\n";
+//	if (level[(trainer->GetYPos() + trainer->GetHeight() / 2) / tileHeight / zoom][(trainer->GetXPos() + trainer->GetWidth() / 2) / tileWidth / zoom] == (int)CollisionType::HomeDoor)
+//	{
+//		std::cout << "test\n";
+//	}
+//}
