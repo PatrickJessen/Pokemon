@@ -1,5 +1,6 @@
 #include "Level.h"
 #include "FileHandler/simple_file_handler.h"
+#include "Input.h"
 #define INDEX y * width + x
 
 using namespace SimpleFileHandler;
@@ -39,28 +40,77 @@ void Level::InitMap()
     inFile.Close();
 }
 
-void Level::LoadMap()
+void Level::LoadLayers()
 {
     for (int y = 0; y < height; y++)
     {
         for (int x = 0; x < width; x++)
         {
             // tile position
-            dstRect = { x * tileSize * zoom + moveMap.x, y * tileSize * zoom + moveMap.y, tileSize * zoom, tileSize * zoom };
+            dstRect = { x * tileSizeX * zoom + moveMap.x, y * tileSizeY * zoom + moveMap.y, tileSizeX * zoom, tileSizeY * zoom };
             // tilenummer fra txt filen
-            srcRect = { level[INDEX].textureX * tileSize, level[INDEX].textureY * tileSize, tileSize, tileSize };
-            SDL_RenderCopy(window->GetRender(), tex, &srcRect, &dstRect);
+            srcRect = { level[INDEX].textureX * tileSizeX, level[INDEX].textureY * tileSizeY, tileSizeX, tileSizeY };
+            if (!level[INDEX].depth)
+            {
+                SDL_RenderCopy(window->GetRender(), tex, &srcRect, &dstRect);
+            }
+            if (level[INDEX].collision)
+            {
+                SDL_Rect testing = { level[INDEX].textureX * tileSize, level[INDEX].textureY * tileSize, tileSize, tileSize };
+                SDL_SetRenderDrawColor(window->GetRender(), 255, 0, 0, 255);
+                SDL_RenderDrawRect(window->GetRender(), &testing);
+            }
+            //SDL_RenderCopy(window->GetRender(), tex, &srcRect, &dstRect);
         }
     }
-            //std::cout << level[(trainer->GetYPos() / 2) / tileSize / zoom].textureX * tileSize << ", " << level[(trainer->GetXPos() / 2) / tileSize / zoom].textureY * tileSize << "\n";
+    trainer->DrawTrainer();
+    for (int y = 0; y < height; y++)
+    {
+        for (int x = 0; x < width; x++)
+        {
+            if (level[INDEX].depth)
+            {
+                // tile position
+                dstRect = { x * tileSizeX * zoom + moveMap.x, y * tileSizeY * zoom + moveMap.y, tileSizeX * zoom, tileSizeY * zoom };
+                // tilenummer fra txt filen
+                srcRect = { level[INDEX].textureX * tileSizeX, level[INDEX].textureY * tileSizeY, tileSizeX, tileSizeY };
+                SDL_RenderCopy(window->GetRender(), tex, &srcRect, &dstRect);
+            }
+        }
+    }
 }
 
 void Level::Update()
 {
-    LoadMap();
+    LoadLayers();
     trainer->UpdateTrainer();
+    MovePlayer();
 }
 
+
+void Level::MovePlayer()
+{
+    if (Input::KeyState(Key::W))
+    {
+        if (!level[trainer->collisionPoint.y * tileSizeY].collision)
+        {
+            trainer->yPos--;
+        }
+        //std::cout << (trainer->yPos * tileSizeY) - tileSizeY << "\n";
+    }
+    else if (Input::KeyState(Key::S))
+    {
+        trainer->yPos++;
+    }
+    else if (Input::KeyState(Key::A))
+    {
+        trainer->xPos--;
+    }
+    else if (Input::KeyState(Key::D))
+    {
+        trainer->xPos++;
+    }
+}
 
 SDL_Texture* Level::loadTexture()
 {

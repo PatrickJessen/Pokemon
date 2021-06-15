@@ -20,7 +20,9 @@ Trainer::~Trainer()
 
 void Trainer::UpdateTrainer()
 {
-	DrawTrainer();
+	//DrawTrainer();
+	collisionPoint = { trainerPos.x + trainerPos.w / 4, trainerPos.y + trainerPos.h, 35, 5 };
+	SDL_RenderDrawRect(window->GetRender(), &collisionPoint);
 	MoveTrainer();
 }
 
@@ -38,7 +40,7 @@ void Trainer::DrawTrainer()
 
 void Trainer::MoveTrainer()
 {
-	if (Input::KeyState(Key::W))
+	/*if (Input::KeyState(Key::W))
 	{
 		yPos--;
 	}
@@ -53,7 +55,7 @@ void Trainer::MoveTrainer()
 	else if (Input::KeyState(Key::D))
 	{
 		xPos++;
-	}
+	}*/
 }
 
 int Trainer::GetXPos()

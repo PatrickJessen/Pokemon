@@ -8,7 +8,14 @@ struct Tile
 {
 	int textureX;
 	int textureY;
-	int depth;
+	bool depth = false;
+	bool water = false;
+	bool collision = false;
+	bool labDoor = false;
+	bool houseDoor = false;
+	bool houseDoor2 = false;
+	bool exit = false;
+	bool exit2 = false;
 };
 
 class Level
@@ -21,11 +28,10 @@ public:
 public:
 	virtual void HandlePokeSpawns() = 0;
 	void InitMap();
-	virtual void InitColMap() = 0;
-	void LoadMap();
+	void LoadLayers();
 	void Update();
 	void CleanMap();
-
+	void MovePlayer();
 	SDL_Texture* loadTexture();
 
 	void SpawnPokemon();
@@ -33,20 +39,20 @@ public:
 	SDL_Texture* tex = nullptr;
 protected:
 	Tile* level = nullptr;
-	int height;
+	int tileSizeX;
+	int tileSizeY;
+	int tileSize = 16;
 	int width;
-	int tileSize;
+	int height;
 	int zoom;
 	int zoneLevel;
 	SDL_Rect srcRect;
 	SDL_Rect dstRect;
 	SDL_Rect moveMap;
 	Window* window;
-	std::vector<SDL_Rect> collisionRect;
 	std::vector<Pokemon*> pokeList;
 	std::map<int, std::vector<Pokemon*>> pokeSpawn;
 	const char* filePath;
-	const char* colMap;
 	const char* texturePath;
 	Trainer* trainer;
 };

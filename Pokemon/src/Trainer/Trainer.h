@@ -10,14 +10,17 @@ public:
 	~Trainer();
 
 	void UpdateTrainer();
+	void DrawTrainer();
 	SDL_Rect& GetTrainerPos();
 
 	int GetXPos();
 	int GetYPos();
 	int GetWidth();
 	int GetHeight();
+	int xPos;
+	int yPos;
+	SDL_Rect collisionPoint;
 private:
-	void DrawTrainer();
 	void MoveTrainer();
 
 
@@ -30,8 +33,6 @@ private:
 	Sprite* sprite;
 	Window* window;
 	std::string name;
-	int xPos;
-	int yPos;
 	int width;
 	int height;
 };

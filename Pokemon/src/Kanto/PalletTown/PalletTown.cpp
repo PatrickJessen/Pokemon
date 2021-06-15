@@ -1,21 +1,20 @@
 #include "PalletTown.h"
 
-PalletTown::PalletTown(Window* window, const char* filePath, const char* colMap, const char* texturePath, int zoneLevel, int width, int height, int tileSize, int zoom)
+PalletTown::PalletTown(Window* window, const char* filePath, const char* texturePath, int zoneLevel, int width, int height, int tileSizeX, int tileSizeY, int zoom)
 {
 	this->window = window;
 	this->filePath = filePath;
-	this->colMap = colMap;
 	this->texturePath = texturePath;
 	this->zoneLevel = zoneLevel;
 	this->width = width;
 	this->height = height;
-	this->tileSize = tileSize;
+	this->tileSizeX = tileSizeX;
+	this->tileSizeY = tileSizeY;
 	this->zoom = zoom;
 
 	trainer = new Trainer(window, "Ash", "Assets/Trainers/MainTrainer.png", 400, 300, 62, 62);
 	
 	InitMap();
-	//InitColMap();
 	HandlePokeSpawns();
 }
 
@@ -45,18 +44,6 @@ void PalletTown::HandlePokeSpawns()
 //		}
 //	fs.close();
 //}
-
-void PalletTown::InitColMap()
-{
-	/*std::ifstream fs(colMap, std::ifstream::in);
-
-	for (int y = 0; y < height; y++)
-		for (int x = 0; x < width; x++)
-		{
-			fs >> level[y][x];
-		}
-	fs.close();*/
-}
 
 //void PalletTown::LoadMap()
 //{
