@@ -43,9 +43,9 @@ void Level::LoadLayers()
     for (int y = 0; y < height; y++)
         for (int x = 0; x < width; x++)
         {
-            dstRect = { x * tileSize * zoom + moveMap.x, y * tileSize * zoom + moveMap.y, tileSize * zoom, tileSize * zoom };
-            srcRect = { level[y][x].textureX * tileSize, level[y][x].textureY * tileSize, tileSize, tileSize };
-            SDL_RenderCopy(window->GetRender(), tex, &srcRect, &dstRect);
+            SDL_Rect dstRect = { x * tileSize * zoom + moveMap.x, y * tileSize * zoom + moveMap.y, tileSize * zoom, tileSize * zoom };
+            SDL_Rect srcRect = { level[y][x].textureX * tileSize, level[y][x].textureY * tileSize, tileSize, tileSize };
+            //SDL_RenderCopy(window->GetRender(), tex, &srcRect, &dstRect);
             if (level[y][x].type != TileType::Depth)
             {
                 SDL_RenderCopy(window->GetRender(), tex, &srcRect, &dstRect);
@@ -63,8 +63,8 @@ void Level::LoadLayers()
         {
             if (level[y][x].type == TileType::Depth)
             {
-                dstRect = { x * tileSize * zoom + moveMap.x, y * tileSize * zoom + moveMap.y, tileSize * zoom, tileSize * zoom };
-                srcRect = { level[y][x].textureX * tileSize, level[y][x].textureY * tileSize, tileSize, tileSize };
+                SDL_Rect dstRect = { x * tileSize * zoom + moveMap.x, y * tileSize * zoom + moveMap.y, tileSize * zoom, tileSize * zoom };
+                SDL_Rect srcRect = { level[y][x].textureX * tileSize, level[y][x].textureY * tileSize, tileSize, tileSize };
                 SDL_RenderCopy(window->GetRender(), tex, &srcRect, &dstRect);
             }
         }

@@ -38,18 +38,16 @@ public:
 	SDL_Texture* tex = nullptr;
 protected:
 	Tile** level;
+	Trainer* trainer;
+	SDL_Rect moveMap;
+	Window* window;
+	std::vector<Pokemon*> pokeList;
+	std::map<int, std::vector<Pokemon*>> pokeSpawn;
 	int tileSize;
 	int width;
 	int height;
 	int zoom;
 	int zoneLevel;
-	SDL_Rect srcRect;
-	SDL_Rect dstRect;
-	SDL_Rect moveMap;
-	Window* window;
-	std::vector<Pokemon*> pokeList;
-	std::map<int, std::vector<Pokemon*>> pokeSpawn;
 	const char* filePath;
 	const char* texturePath;
-	Trainer* trainer;
 };

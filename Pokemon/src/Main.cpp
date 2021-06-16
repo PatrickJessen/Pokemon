@@ -1,5 +1,6 @@
 #include "Window.h"
 #include "Kanto/PalletTown/PalletTown.h"
+#include "Kanto/PalletTown/ProfOakLab.h"
 
 int main()
 {
