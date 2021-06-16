@@ -21,7 +21,7 @@ Trainer::~Trainer()
 void Trainer::UpdateTrainer()
 {
 	//DrawTrainer();
-	collisionPoint = { trainerPos.x + trainerPos.w / 4, trainerPos.y + trainerPos.h, 35, 5 };
+	collisionPoint = { trainerPos.x + trainerPos.w / 2, trainerPos.y + trainerPos.h, 15, 5 };
 	SDL_RenderDrawRect(window->GetRender(), &collisionPoint);
 	MoveTrainer();
 }

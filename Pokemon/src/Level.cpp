@@ -22,68 +22,58 @@ Level::~Level()
 
 void Level::InitMap()
 {
-    if (level != nullptr)
-        delete level;
-
-    level = new Tile[height * width];
-
+    trainer = new Trainer(window, "Ash", "Assets/Trainers/MainTrainer.png", 200, 250, 62, 62);
     ReadFile inFile(filePath);
+    level = new Tile*[width];
+
+    for (int i = 0; i < width; i++)
+    {
+        level[i] = new Tile[height];
+    }
 
     for (int y = 0; y < height; y++)
-    {
         for (int x = 0; x < width; x++)
         {
-            level[INDEX] = inFile.ReadClass<Tile>();
-            //level[INDEX].textureX = inFile.ReadPrimitive<int>();
-            //level[INDEX].textureY = inFile.ReadPrimitive<int>();
+            level[y][x] = inFile.ReadClass<Tile>();
         }
-    }
-    inFile.Close();
 }
 
 void Level::LoadLayers()
 {
     for (int y = 0; y < height; y++)
-    {
         for (int x = 0; x < width; x++)
         {
-            // tile position
-            dstRect = { x * tileSizeX * zoom + moveMap.x, y * tileSizeY * zoom + moveMap.y, tileSizeX * zoom, tileSizeY * zoom };
-            // tilenummer fra txt filen
-            srcRect = { level[INDEX].textureX * tileSizeX, level[INDEX].textureY * tileSizeY, tileSizeX, tileSizeY };
-            if (!level[INDEX].depth)
+            dstRect = { x * tileSize * zoom + moveMap.x, y * tileSize * zoom + moveMap.y, tileSize * zoom, tileSize * zoom };
+            srcRect = { level[y][x].textureX * tileSize, level[y][x].textureY * tileSize, tileSize, tileSize };
+            SDL_RenderCopy(window->GetRender(), tex, &srcRect, &dstRect);
+            if (level[y][x].type != TileType::Depth)
             {
                 SDL_RenderCopy(window->GetRender(), tex, &srcRect, &dstRect);
             }
-            if (level[INDEX].collision)
+            if (level[y][x].type == TileType::Collision)
             {
-                SDL_Rect testing = { level[INDEX].textureX * tileSize, level[INDEX].textureY * tileSize, tileSize, tileSize };
+                SDL_Rect testing = { level[y][x].textureX * tileSize, level[y][x].textureY * tileSize, tileSize, tileSize };
                 SDL_SetRenderDrawColor(window->GetRender(), 255, 0, 0, 255);
                 SDL_RenderDrawRect(window->GetRender(), &testing);
             }
-            //SDL_RenderCopy(window->GetRender(), tex, &srcRect, &dstRect);
         }
-    }
     trainer->DrawTrainer();
     for (int y = 0; y < height; y++)
-    {
         for (int x = 0; x < width; x++)
         {
-            if (level[INDEX].depth)
+            if (level[y][x].type == TileType::Depth)
             {
-                // tile position
-                dstRect = { x * tileSizeX * zoom + moveMap.x, y * tileSizeY * zoom + moveMap.y, tileSizeX * zoom, tileSizeY * zoom };
-                // tilenummer fra txt filen
-                srcRect = { level[INDEX].textureX * tileSize, level[INDEX].textureY * tileSize, tileSizeX, tileSizeY };
+                dstRect = { x * tileSize * zoom + moveMap.x, y * tileSize * zoom + moveMap.y, tileSize * zoom, tileSize * zoom };
+                srcRect = { level[y][x].textureX * tileSize, level[y][x].textureY * tileSize, tileSize, tileSize };
                 SDL_RenderCopy(window->GetRender(), tex, &srcRect, &dstRect);
             }
         }
-    }
 }
 
 void Level::Update()
 {
     LoadLayers();
+    LoadNewLevel();
     trainer->UpdateTrainer();
     MovePlayer();
 }
@@ -91,25 +81,34 @@ void Level::Update()
 
 void Level::MovePlayer()
 {
+    //std::cout << (int)level[trainer->collisionPoint.y / tileSize][trainer->collisionPoint.x / tileSize].type << "\n";
     if (Input::KeyState(Key::W))
     {
-        /*if (!level[(trainer->collisionPoint.y * tileSize + trainer->collisionPoint.x) / tileSize].collision)
+        if (level[trainer->collisionPoint.y / tileSize][trainer->collisionPoint.x / tileSize].type != TileType::Collision)
         {
-        }*/
-        std::cout << level[(level[(trainer->collisionPoint.y * width + trainer->collisionPoint.x) / tileSize].textureY * width + level[(trainer->collisionPoint.y * width + trainer->collisionPoint.x) / tileSize].textureX)].collision << "\n";
-        trainer->yPos--;
+            trainer->yPos--;
+        }
     }
     else if (Input::KeyState(Key::S))
     {
-        trainer->yPos++;
+        if (level[trainer->collisionPoint.y / tileSize + 1][trainer->collisionPoint.x / tileSize].type != TileType::Collision)
+        {
+            trainer->yPos++;
+        }
     }
     else if (Input::KeyState(Key::A))
     {
-        trainer->xPos--;
+        if (level[trainer->collisionPoint.y / tileSize][trainer->collisionPoint.x / tileSize - 1].type != TileType::Collision)
+        {
+            trainer->xPos--;
+        }
     }
     else if (Input::KeyState(Key::D))
     {
-        trainer->xPos++;
+        if (level[trainer->collisionPoint.y / tileSize][(trainer->collisionPoint.x / tileSize) + 1].type != TileType::Collision)
+        {
+            trainer->xPos++;
+        }
     }
 }
 

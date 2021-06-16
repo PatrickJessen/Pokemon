@@ -54,6 +54,9 @@
     <ClCompile Include="src\Trainer\Trainer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Kanto\PalletTown\ProfOakLab.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Window.h">
@@ -108,6 +111,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Kanto\PalletTown\CollisionMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Kanto\PalletTown\ProfOakLab.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

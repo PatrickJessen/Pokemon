@@ -4,18 +4,16 @@
 #include "Trainer/Trainer.h"
 #include <fstream>
 
+enum class TileType
+{
+	Depth, Water, Collision, Door, Exit, Grass, TallGrass, Grave, Sand, Rock, DeepWater, Ice, Waterfall
+};
+
 struct Tile
 {
 	int textureX;
 	int textureY;
-	bool depth = false;
-	bool water = false;
-	bool collision = false;
-	bool labDoor = false;
-	bool houseDoor = false;
-	bool houseDoor2 = false;
-	bool exit = false;
-	bool exit2 = false;
+	TileType type;
 };
 
 class Level
@@ -27,6 +25,7 @@ public:
 
 public:
 	virtual void HandlePokeSpawns() = 0;
+	virtual void LoadNewLevel() = 0;
 	void InitMap();
 	void LoadLayers();
 	void Update();
@@ -38,10 +37,8 @@ public:
 
 	SDL_Texture* tex = nullptr;
 protected:
-	Tile* level = nullptr;
-	int tileSizeX;
-	int tileSizeY;
-	int tileSize = 16;
+	Tile** level;
+	int tileSize;
 	int width;
 	int height;
 	int zoom;

@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Kanto\PalletTown\ProfOakLab.cpp" />
     <ClCompile Include="src\FileHandler\sfh_file.cpp" />
     <ClCompile Include="src\FileHandler\sfh_read_file.cpp" />
     <ClCompile Include="src\FileHandler\sfh_write_file.cpp" />
@@ -160,6 +161,7 @@
     <ClCompile Include="src\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Kanto\PalletTown\ProfOakLab.h" />
     <ClInclude Include="src\FileHandler\sfh_def.h" />
     <ClInclude Include="src\FileHandler\sfh_file.h" />
     <ClInclude Include="src\FileHandler\sfh_read_file.h" />

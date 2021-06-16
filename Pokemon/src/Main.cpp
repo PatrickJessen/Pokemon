@@ -7,7 +7,7 @@ int main()
 
 	//PalletTown* palletTown = new Level(window, "Assets/Map/PalletTown.map", "Assets/Map/PalletTown.png", 100, 100, 1, 16, 3);
 
-	Level* test = new PalletTown(window, "Assets/Map/originMapCol.map", "Assets/Map/pt.bmp", 1, 46, 46, 16, 16, 1); // 37, 22
+	Level* test = new PalletTown(window, "Assets/Map/Pallet Town/PalletMap.map", "Assets/Map/Pallet Town/pt.bmp", 1, 46, 46, 16, 1); // 37, 22
 	test->tex = test->loadTexture();
 
 	while (true)

@@ -2,7 +2,6 @@
 #include "../../Level.h"
 
 
-
 enum class CollisionType
 {
 	Normal = 385,
@@ -17,11 +16,13 @@ enum class CollisionType
 class PalletTown : public Level
 {
 public:
-	PalletTown(Window* window, const char* filePath, const char* texturePath, int zoneLevel, int width, int height, int tileSizeX, int tileSizeY, int zoom);
+	PalletTown(Window* window, const char* filePath, const char* texturePath, int zoneLevel, int width, int height, int tileSize, int zoom);
 	~PalletTown();
 
 public:
 	virtual void HandlePokeSpawns() override;
+	virtual void LoadNewLevel() override;
+	void EnterOakLab();
 
 };
 
