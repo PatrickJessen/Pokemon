@@ -9,6 +9,8 @@ public:
 
 public:
 	virtual void HandlePokeSpawns() override;
-	virtual void LoadNewLevel() override;
+	virtual Level* UpdateLevel() override;
+
+	Level* palletTown = nullptr;
 };
 

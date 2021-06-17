@@ -11,16 +11,19 @@ PalletTown::PalletTown(Window* window, const char* filePath, const char* texture
 	this->height = height;
 	this->tileSize = tileSize;
 	this->zoom = zoom;
-
-	trainer = new Trainer(window, "Ash", "Assets/Trainers/MainTrainer.png", 200, 250, 62, 62);
+	doorsPosition.emplace(0, std::vector<Vector2> {Vector2(25, 31), Vector2(25, 32)});
+	doorsPosition.emplace(1, std::vector<Vector2> {Vector2(13, 30), Vector2(13, 29)});
+	doorsPosition.emplace(2, std::vector<Vector2> {Vector2(13, 12), Vector2(13, 11)});
+	//trainer = new Trainer(window, "Ash", "Assets/Trainers/MainTrainer.png", 200, 250, 62, 62);
 	
-	InitMap();
-	HandlePokeSpawns();
+	//HandlePokeSpawns();
 }
 
 PalletTown::~PalletTown()
 {
-	
+	std::cout << "destroyed\n";
+	CleanMap();
+	delete UpdateLevel();
 }
 
 void PalletTown::HandlePokeSpawns()
@@ -28,31 +31,36 @@ void PalletTown::HandlePokeSpawns()
 	/*Pokemon Bulbasaur(window, "Assets/Pokemons/Bulbasaur.png", "Bulbasaur", Type::GRASS, Type::POISON, 5);
 	Bulbasaur.InitStats(100, 100, 100, 100, 100, 100);*/
 
-	pokeSpawn.emplace(100, std::vector<Pokemon*> {new Pokemon(window, "Assets/Pokemons/Bulbasaur.png", "Bulbasaur", Type::GRASS, Type::POISON, 5),
+	/*pokeSpawn.emplace(100, std::vector<Pokemon*> {new Pokemon(window, "Assets/Pokemons/Bulbasaur.png", "Bulbasaur", Type::GRASS, Type::POISON, 5),
 												  new Pokemon(window, "Assets/Pokemons/Charmander.png", "Charmander", Type::FIRE, 5),
-												  new Pokemon(window, "Assets/Pokemons/Squirtle.png", "Squirtle", Type::WATER, 5)});
+												  new Pokemon(window, "Assets/Pokemons/Squirtle.png", "Squirtle", Type::WATER, 5)});*/
 }
 
-void PalletTown::LoadNewLevel()
+Level* PalletTown::UpdateLevel()
 {
-	if (level[trainer->collisionPoint.y / tileSize][trainer->collisionPoint.x / tileSize].type == TileType::Door)
+	int x = LoadNewLevel();
+	switch (x)
 	{
-		std::cout << "test\n";
-		EnterOakLab();
+	case 0:
+	{
+		oakLab = new ProfOakLab(window, "Assets/Map/Pallet Town/OakLab.map", "Assets/Map/Pallet Town/OakLab.bmp", 1, 60, 60, 16, 1);
+		return oakLab;
 	}
-}
-
-void PalletTown::EnterOakLab()
-{
-	Level* oakLab = new ProfOakLab(window, this->filePath = "Assets/Map/Pallet Town/OakLab.map", this->texturePath = "Assets/Map/Pallet Town/OakLab.bmp", this->zoneLevel = 1, this->width = 60, this->height = 60, this->tileSize = 16, this->zoom = 1);
-	//oakLab->Update();
-	//filePath = "Assets/Map/Pallet Town/OakLab.map";
-	//texturePath = "Assets/Map/Pallet Town/OakLab.bmp";
-	//zoneLevel = 1;
-	//width = 60;
-	//height = 60;
-	//tileSize = 16;
-	//zoom = 1;
-	InitMap();
-	tex = loadTexture();
+	break;
+	/*case 1:
+	{
+		std::cout << "garys house\n";
+		InitMap();
+		tex = loadTexture();
+	}
+	break;
+	case 2:
+	{
+		std::cout << "ash house\n";
+		InitMap();
+		tex = loadTexture();
+	}
+	break;*/
+	}
+	return nullptr;
 }

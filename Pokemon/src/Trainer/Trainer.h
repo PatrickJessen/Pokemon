@@ -17,9 +17,11 @@ public:
 	int GetYPos();
 	int GetWidth();
 	int GetHeight();
+	int GetTileX(int tileSize);
+	int GetTileY(int tileSize);
+	SDL_Rect collisionPoint;
 	int xPos;
 	int yPos;
-	SDL_Rect collisionPoint;
 private:
 	void MoveTrainer();
 

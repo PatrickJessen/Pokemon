@@ -1,18 +1,6 @@
 #pragma once
 #include "../../Level.h"
 
-
-enum class CollisionType
-{
-	Normal = 385,
-	HomeDoor = 391,
-	CousinDoor = 390,
-	OakLab = 387,
-	Water = 386,
-	ExitWater = 389,
-	NormalExit = 388
-};
-
 class PalletTown : public Level
 {
 public:
@@ -21,8 +9,8 @@ public:
 
 public:
 	virtual void HandlePokeSpawns() override;
-	virtual void LoadNewLevel() override;
-	void EnterOakLab();
+	virtual Level* UpdateLevel() override;
 
+	Level* oakLab = nullptr;
 };
 

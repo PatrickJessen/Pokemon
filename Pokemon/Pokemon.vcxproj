@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\GameManager.cpp" />
     <ClCompile Include="src\Kanto\PalletTown\ProfOakLab.cpp" />
     <ClCompile Include="src\FileHandler\sfh_file.cpp" />
     <ClCompile Include="src\FileHandler\sfh_read_file.cpp" />
@@ -161,6 +162,7 @@
     <ClCompile Include="src\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GameManager.h" />
     <ClInclude Include="src\Kanto\PalletTown\ProfOakLab.h" />
     <ClInclude Include="src\FileHandler\sfh_def.h" />
     <ClInclude Include="src\FileHandler\sfh_file.h" />
@@ -179,6 +181,7 @@
     <ClInclude Include="src\Input.h" />
     <ClInclude Include="src\Level.h" />
     <ClInclude Include="src\Trainer\Trainer.h" />
+    <ClInclude Include="src\Vector2.h" />
     <ClInclude Include="src\Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

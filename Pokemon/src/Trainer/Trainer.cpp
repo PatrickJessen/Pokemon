@@ -16,12 +16,13 @@ Trainer::Trainer(Window* window, std::string name, const char* texturePath, int 
 
 Trainer::~Trainer()
 {
+	delete sprite;
 }
 
 void Trainer::UpdateTrainer()
 {
 	//DrawTrainer();
-	collisionPoint = { trainerPos.x + trainerPos.w / 2, trainerPos.y + trainerPos.h, 15, 5 };
+	collisionPoint = { trainerPos.x + trainerPos.w / 2, trainerPos.y + trainerPos.h - 5, 15, 5 };
 	SDL_RenderDrawRect(window->GetRender(), &collisionPoint);
 	MoveTrainer();
 }
@@ -76,4 +77,14 @@ int Trainer::GetWidth()
 int Trainer::GetHeight()
 {
 	return height;
+}
+
+int Trainer::GetTileX(int tileSize)
+{
+	return collisionPoint.x / tileSize;
+}
+
+int Trainer::GetTileY(int tileSize)
+{
+	return collisionPoint.y / tileSize;
 }
