@@ -22,14 +22,22 @@ Trainer::~Trainer()
 void Trainer::UpdateTrainer()
 {
 	//DrawTrainer();
+	interactPoint = { trainerPos.x + trainerPos.w / 2, trainerPos.y, 5, 5 };
 	collisionPoint = { trainerPos.x + trainerPos.w / 2, trainerPos.y + trainerPos.h - 5, 15, 5 };
 	SDL_RenderDrawRect(window->GetRender(), &collisionPoint);
+	SDL_RenderDrawRect(window->GetRender(), &interactPoint);
 	MoveTrainer();
+	DrawTrainer();
 }
 
 SDL_Rect& Trainer::GetTrainerPos()
 {
 	return trainerPos;
+}
+
+SDL_Rect& Trainer::GetInteractRect()
+{
+	return interactPoint;
 }
 
 void Trainer::DrawTrainer()
@@ -39,24 +47,14 @@ void Trainer::DrawTrainer()
 	SDL_RenderCopy(window->GetRender(), sprite->tex, &trainerSrc, &trainerPos);
 }
 
+Pokemon* Trainer::GetPokemonByName(const char* pokemonName)
+{
+	return nullptr;
+}
+
 void Trainer::MoveTrainer()
 {
-	/*if (Input::KeyState(Key::W))
-	{
-		yPos--;
-	}
-	else if (Input::KeyState(Key::S))
-	{
-		yPos++;
-	}
-	else if (Input::KeyState(Key::A))
-	{
-		xPos--;
-	}
-	else if (Input::KeyState(Key::D))
-	{
-		xPos++;
-	}*/
+
 }
 
 int Trainer::GetXPos()

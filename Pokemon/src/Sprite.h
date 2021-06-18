@@ -13,6 +13,8 @@ public:
 
 	void ChangeSprite(const char* path);
 
+	const char* GetPath();
+
 private:
 	const char* path;
 

@@ -1,6 +1,5 @@
 #include "Level.h"
 #include "FileHandler/simple_file_handler.h"
-#include "Input.h"
 #define INDEX y * width + x
 
 using namespace SimpleFileHandler;
@@ -18,7 +17,6 @@ using namespace SimpleFileHandler;
 
 Level::~Level()
 {
-    
     delete sprite;
 }
 
@@ -43,7 +41,6 @@ int Level::LoadNewLevel()
 void Level::InitMap()
 {
     sprite = new Sprite(texturePath, window);
-    trainer = new Trainer(window, "Ash", "Assets/Trainers/MainTrainer.png", 200, 250, 62, 62);
     ReadFile inFile(filePath);
     level = new Tile*[width];
 
@@ -60,6 +57,11 @@ void Level::InitMap()
 }
 
 void Level::LoadLayers()
+{
+
+}
+
+void Level::DrawBackground()
 {
     for (int y = 0; y < height; y++)
         for (int x = 0; x < width; x++)
@@ -78,7 +80,10 @@ void Level::LoadLayers()
                 SDL_RenderDrawRect(window->GetRender(), &testing);
             }
         }
-    trainer->DrawTrainer();
+}
+
+void Level::DrawDepth()
+{
     for (int y = 0; y < height; y++)
         for (int x = 0; x < width; x++)
         {
@@ -91,16 +96,19 @@ void Level::LoadLayers()
         }
 }
 
-void Level::Update()
+void Level::UpdateBackground()
 {
-    LoadLayers();
-    trainer->UpdateTrainer();
-    MovePlayer();
+    DrawBackground();
+}
+
+void Level::UpdateForeground()
+{
+    DrawDepth();
+    CustomMapUpdate();
 }
 
 void Level::CleanMap()
 {
-    delete trainer;
     for (int x = 0; x < width; x++)
     {
         //std::cout << level[x]->textureX << ", " << level[x]->textureY << "\n";
@@ -114,7 +122,7 @@ void Level::CleanMap()
 void Level::MovePlayer()
 {
     //std::cout << (int)level[trainer->collisionPoint.y / tileSize][trainer->collisionPoint.x / tileSize].type << "\n";
-    if (Input::KeyState(Key::W))
+    /*if (Input::KeyState(Key::W))
     {
         if (level[trainer->collisionPoint.y / tileSize - 1][trainer->collisionPoint.x / tileSize].type != TileType::Collision)
         {
@@ -141,7 +149,7 @@ void Level::MovePlayer()
         {
             trainer->xPos++;
         }
-    }
+    }*/
 }
 
 

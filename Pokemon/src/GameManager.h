@@ -4,13 +4,16 @@
 class GameManager
 {
 public:
-	GameManager();
+	GameManager(Window* window);
 	~GameManager();
 
 public:
 	void Update();
+	void MovePlayer();
 
 	Level* level;
+	Trainer* trainer;
 private:
+	Window* window;
 };
 

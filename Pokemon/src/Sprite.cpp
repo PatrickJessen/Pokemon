@@ -25,3 +25,8 @@ void Sprite::ChangeSprite(const char* path)
 	surface = IMG_Load(path);
 	tex = SDL_CreateTextureFromSurface(window->GetRender(), surface);
 }
+
+const char* Sprite::GetPath()
+{
+	return path;
+}

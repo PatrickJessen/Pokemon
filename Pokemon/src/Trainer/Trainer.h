@@ -12,6 +12,7 @@ public:
 	void UpdateTrainer();
 	void DrawTrainer();
 	SDL_Rect& GetTrainerPos();
+	SDL_Rect& GetInteractRect();
 
 	int GetXPos();
 	int GetYPos();
@@ -22,6 +23,10 @@ public:
 	SDL_Rect collisionPoint;
 	int xPos;
 	int yPos;
+	Pokemon* pokebag[5];
+	const char* starterPokemon;
+
+	Pokemon* GetPokemonByName(const char* pokemonName);
 private:
 	void MoveTrainer();
 
@@ -29,7 +34,7 @@ private:
 private:
 	SDL_Rect trainerPos;
 	SDL_Rect trainerSrc;
-	Pokemon* pokebag[5];
+	SDL_Rect interactPoint;
 	std::vector<Pokemon*> pc;
 	const char* texturePath;
 	Sprite* sprite;

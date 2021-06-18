@@ -5,6 +5,8 @@
 #include <fstream>
 #include "Vector2.h"
 #include "Sprite.h"
+#include "Collision.h"
+#include "Input.h"
 
 enum class TileType
 {
@@ -30,25 +32,29 @@ public:
 	virtual void HandlePokeSpawns() = 0;
 	int LoadNewLevel();
 	virtual Level* UpdateLevel() = 0;
+	virtual void CustomMapUpdate() = 0;
 	void InitMap();
 	void LoadLayers();
-	void Update();
+	void DrawBackground();
+	void DrawDepth();
+	void UpdateBackground();
+	void UpdateForeground();
 	void CleanMap();
 	void MovePlayer();
 
 	void SpawnPokemon();
 
 	SDL_Texture* tex = nullptr;
+	Trainer* trainer;
+	int tileSize;
+	Tile** level;
 protected:
 	Sprite* sprite;
-	Tile** level;
-	Trainer* trainer;
 	SDL_Rect moveMap;
 	Window* window;
 	/*std::vector<Pokemon*> pokeList;
 	std::map<int, std::vector<Pokemon*>> pokeSpawn;*/
 	std::map<int, std::vector<Vector2>> doorsPosition;
-	int tileSize;
 	int width;
 	int height;
 	int zoom;

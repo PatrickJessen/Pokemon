@@ -1,7 +1,7 @@
 #include "PalletTown.h"
 #include "ProfOakLab.h"
 
-PalletTown::PalletTown(Window* window, const char* filePath, const char* texturePath, int zoneLevel, int width, int height, int tileSize, int zoom)
+PalletTown::PalletTown(Window* window, Trainer* trainer, const char* filePath, const char* texturePath, int zoneLevel, int width, int height, int tileSize, int zoom)
 {
 	this->window = window;
 	this->filePath = filePath;
@@ -11,6 +11,7 @@ PalletTown::PalletTown(Window* window, const char* filePath, const char* texture
 	this->height = height;
 	this->tileSize = tileSize;
 	this->zoom = zoom;
+	this->trainer = trainer;
 	doorsPosition.emplace(0, std::vector<Vector2> {Vector2(25, 31), Vector2(25, 32)});
 	doorsPosition.emplace(1, std::vector<Vector2> {Vector2(13, 30), Vector2(13, 29)});
 	doorsPosition.emplace(2, std::vector<Vector2> {Vector2(13, 12), Vector2(13, 11)});
@@ -22,7 +23,7 @@ PalletTown::PalletTown(Window* window, const char* filePath, const char* texture
 PalletTown::~PalletTown()
 {
 	std::cout << "destroyed\n";
-	CleanMap();
+	//CleanMap();
 	delete UpdateLevel();
 }
 
@@ -43,7 +44,7 @@ Level* PalletTown::UpdateLevel()
 	{
 	case 0:
 	{
-		oakLab = new ProfOakLab(window, "Assets/Map/Pallet Town/OakLab.map", "Assets/Map/Pallet Town/OakLab.bmp", 1, 60, 60, 16, 1);
+		oakLab = new ProfOakLab(window, trainer, "Assets/Map/Pallet Town/OakLab.map", "Assets/Map/Pallet Town/OakLab.bmp", 1, 60, 60, 16, 1);
 		return oakLab;
 	}
 	break;
@@ -63,4 +64,8 @@ Level* PalletTown::UpdateLevel()
 	break;*/
 	}
 	return nullptr;
+}
+
+void PalletTown::CustomMapUpdate()
+{
 }
