@@ -12,13 +12,14 @@ ProfOakLab::ProfOakLab(Window* window, Trainer* trainer, const char* filePath, c
 	this->tileSize = tileSize;
 	this->zoom = zoom;
 	this->trainer = trainer;
-	doorsPosition.emplace(0, std::vector<Vector2> {Vector2(39, 26), Vector2(39, 27), Vector2(39, 28), Vector2(39, 29), Vector2(39, 30), Vector2(39, 31)});
+	//doorsPosition.emplace(0, std::vector<Vector2> {Vector2(13, 25), Vector2(14, 25), Vector2(15, 25), Vector2(16, 25)});
+	doorsPosition.emplace(0, std::vector<Vector2> {Vector2(25, 13), Vector2(25, 14), Vector2(25, 15), Vector2(25, 16)});
 	sprite = new Sprite("Assets/Items/pokeball.png", window);
 	pokemon = new Sprite("Nihility", window);
 
-	ballRect1 = { 200, 130, 25, 25 };
-	ballRect2 = { 230, 130, 25, 25 };
-	ballRect3 = { 260, 130, 25, 25 };
+	ballRect1 = { 590, 390, 40, 40 };
+	ballRect2 = { 650, 390, 40, 40 };
+	ballRect3 = { 710, 390, 40, 40 };
 	//InitMap();
 	//HandlePokeSpawns();
 }
@@ -43,7 +44,7 @@ Level* ProfOakLab::UpdateLevel()
 	{
 	case 0:
 	{
-		palletTown = new PalletTown(window, trainer, "Assets/Map/Pallet Town/PalletMap.map", "Assets/Map/Pallet Town/pt.bmp", 1, 46, 46, 16, 1);
+		palletTown = new PalletTown(window, trainer, "Assets/Map/Pallet Town/PalletTown.map", "Assets/Map/Pallet Town/Pallet_Town.bmp", 1, 31, 31, 32, 1);
 
 		//palletTown->tex = palletTown->loadTexture();
 		return palletTown;

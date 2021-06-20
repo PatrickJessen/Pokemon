@@ -1,8 +1,15 @@
 #include "GUI.h"
 
-void GUI::Init(Window* window)
+static SDL_Rect rect;
+static SDL_Rect fontSize;
+static Sprite* boxSprite;
+static Window* window;
+static TTF_Font* font;
+static SDL_Texture* texture;
+
+void GUI::Init(Window* windows)
 {
-	GUI::window = window;
+	window = windows;
 	ChangeFont(12);
 }
 

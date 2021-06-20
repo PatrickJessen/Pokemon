@@ -10,7 +10,7 @@
 
 enum class TileType
 {
-	Depth, Water, Collision, Door, Exit, Grass, TallGrass, Grave, Sand, Rock, DeepWater, Ice, Waterfall
+	Depth, Water, Collision, Door, Exit, Grass, TallGrass, Grave, Sand, Rock, DeepWater, Ice, Waterfall, test
 };
 
 struct Tile
@@ -44,20 +44,24 @@ public:
 
 	void SpawnPokemon();
 
+	SDL_Rect camera;
 	SDL_Texture* tex = nullptr;
 	Trainer* trainer;
 	int tileSize;
 	Tile** level;
+	int windowWidth;
+	int windowHeight;
+	int zoom;
+	SDL_Rect dstRect;
+	SDL_Rect srcRect;
 protected:
 	Sprite* sprite;
-	SDL_Rect moveMap;
 	Window* window;
 	/*std::vector<Pokemon*> pokeList;
 	std::map<int, std::vector<Pokemon*>> pokeSpawn;*/
 	std::map<int, std::vector<Vector2>> doorsPosition;
 	int width;
 	int height;
-	int zoom;
 	int zoneLevel;
 	const char* filePath;
 	const char* texturePath;

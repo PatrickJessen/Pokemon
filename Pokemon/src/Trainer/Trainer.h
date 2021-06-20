@@ -6,7 +6,7 @@
 class Trainer
 {
 public:
-	Trainer(Window* window, std::string name, const char* texturePath, int xPos, int yPos, int width, int height);
+	Trainer(Window* window, std::string name, const char* texturePath, int xPos, int yPos, int width, int height, int money);
 	~Trainer();
 
 	void UpdateTrainer();
@@ -16,10 +16,17 @@ public:
 
 	int GetXPos();
 	int GetYPos();
+	void SetXPos(int value);
+	void SetYPos(int value);
+	void SetXYPos(int x, int y);
 	int GetWidth();
 	int GetHeight();
 	int GetTileX(int tileSize);
 	int GetTileY(int tileSize);
+	void SetTileX(int value, int tileSize);
+	void SetTileY(int value, int tileSize);
+	int GetMoney();
+	void SetMoney(int value);
 	SDL_Rect collisionPoint;
 	int xPos;
 	int yPos;
@@ -42,4 +49,5 @@ private:
 	std::string name;
 	int width;
 	int height;
+	int money;
 };
