@@ -33,6 +33,8 @@ public:
 	Pokemon* pokebag[5];
 	const char* starterPokemon;
 
+	SDL_Rect interactPoint;
+	Sprite* sprite;
 	Pokemon* GetPokemonByName(const char* pokemonName);
 private:
 	void MoveTrainer();
@@ -41,10 +43,8 @@ private:
 private:
 	SDL_Rect trainerPos;
 	SDL_Rect trainerSrc;
-	SDL_Rect interactPoint;
 	std::vector<Pokemon*> pc;
 	const char* texturePath;
-	Sprite* sprite;
 	Window* window;
 	std::string name;
 	int width;

@@ -73,12 +73,12 @@ void Level::DrawBackground()
             {
                 SDL_RenderCopy(window->GetRender(), sprite->tex, &srcRect, &dstRect);
             }
-            /*if (level[y][x].type == TileType::Collision)
+            if (level[y][x].type == TileType::Collision)
             {
-                SDL_Rect testing = { level[y][x].textureX * tileSize * zoom, level[y][x].textureY * tileSize * zoom, tileSize * zoom, tileSize * zoom };
+                SDL_Rect testing = { level[y][x].textureX * tileSize * zoom + camera.x, level[y][x].textureY * tileSize * zoom + camera.y, tileSize * zoom, tileSize * zoom };
                 SDL_SetRenderDrawColor(window->GetRender(), 255, 0, 0, 255);
                 SDL_RenderDrawRect(window->GetRender(), &testing);
-            }*/
+            }
         }
 }
 
@@ -116,6 +116,80 @@ void Level::CleanMap()
         //std::cout << level[x]->textureX << ", " << level[x]->textureY << "\n";
     }
     delete[] level;
+}
+
+void Level::MovePlayerInWorld()
+{
+    //level->camera = { trainer->xPos - window->GetWidth() / 2, trainer->yPos - window->GetHeight() / 2, level->tileSize * level->zoom, level->tileSize * level->zoom };
+    if (Input::KeyState(Key::W))
+    {
+        if (level[(trainer->collisionPoint.y / tileSize / zoom)][trainer->collisionPoint.x / tileSize / zoom].type != TileType::Collision)
+        {
+            //trainer->yPos--;
+            camera.y++;
+        }
+    }
+    else if (Input::KeyState(Key::S))
+    {
+        if (level[trainer->collisionPoint.y / tileSize / zoom + 1][trainer->collisionPoint.x / tileSize / zoom].type != TileType::Collision)
+        {
+            //trainer->yPos++;
+            camera.y--;
+        }
+    }
+    else if (Input::KeyState(Key::A))
+    {
+        if (level[trainer->collisionPoint.y / tileSize / zoom][trainer->collisionPoint.x / tileSize / zoom - 1].type != TileType::Collision)
+        {
+
+            //trainer->xPos--;
+            camera.x++;
+        }
+    }
+    else if (Input::KeyState(Key::D))
+    {
+        if (level[trainer->collisionPoint.y / tileSize / zoom][trainer->collisionPoint.x / tileSize / zoom + 1].type != TileType::Collision)
+        {
+
+            //trainer->xPos++;
+            camera.x--;
+        }
+    }
+    //trainer->SetXYPos(window->GetWidth() / 2, window->GetHeight() / 2);
+    trainer->GetTrainerPos() = { trainer->xPos - camera.x, trainer->yPos - camera.y, 62, 62 };
+    std::cout << trainer->GetTileX(tileSize) << ", " << trainer->GetTileY(tileSize) << "\n";
+}
+
+void Level::MovePlayerInside()
+{
+    if (Input::KeyState(Key::W))
+    {
+        if (level[(trainer->collisionPoint.y / tileSize / zoom - 1)][trainer->collisionPoint.x / tileSize / zoom].type != TileType::Collision)
+        {
+            trainer->yPos--;
+        }
+    }
+    else if (Input::KeyState(Key::S))
+    {
+        if (level[trainer->collisionPoint.y / tileSize / zoom + 1][trainer->collisionPoint.x / tileSize / zoom].type != TileType::Collision)
+        {
+            trainer->yPos++;
+        }
+    }
+    else if (Input::KeyState(Key::A))
+    {
+        if (level[trainer->collisionPoint.y / tileSize / zoom][trainer->collisionPoint.x / tileSize / zoom - 1].type != TileType::Collision)
+        {
+            trainer->xPos--;
+        }
+    }
+    else if (Input::KeyState(Key::D))
+    {
+        if (level[trainer->collisionPoint.y / tileSize / zoom][trainer->collisionPoint.x / tileSize / zoom + 1].type != TileType::Collision)
+        {
+            trainer->xPos++;
+        }
+    }
 }
 
 

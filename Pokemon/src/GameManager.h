@@ -1,5 +1,6 @@
 #pragma once
 #include "Level.h"
+#include "Camera.h"
 
 class GameManager
 {
@@ -16,6 +17,7 @@ private:
 public:
 	Level* level;
 	Trainer* trainer;
+	Camera* camera;
 private:
 	Window* window;
 };

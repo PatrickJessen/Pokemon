@@ -20,6 +20,9 @@ ProfOakLab::ProfOakLab(Window* window, Trainer* trainer, const char* filePath, c
 	ballRect1 = { 590, 390, 40, 40 };
 	ballRect2 = { 650, 390, 40, 40 };
 	ballRect3 = { 710, 390, 40, 40 };
+
+	isFullMap = true;
+
 	//InitMap();
 	//HandlePokeSpawns();
 }
@@ -44,7 +47,7 @@ Level* ProfOakLab::UpdateLevel()
 	{
 	case 0:
 	{
-		palletTown = new PalletTown(window, trainer, "Assets/Map/Pallet Town/PalletTown.map", "Assets/Map/Pallet Town/Pallet_Town.bmp", 1, 31, 31, 32, 1);
+		palletTown = new PalletTown(window, trainer, "Assets/Map/Pallet Town/PalletTown.map", "Assets/Map/Pallet Town/Pallet_Town.bmp", 1, 31, 31, 32, 2);
 
 		//palletTown->tex = palletTown->loadTexture();
 		return palletTown;

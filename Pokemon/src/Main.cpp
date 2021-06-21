@@ -1,6 +1,7 @@
 #include "Window.h"
 #include "GameManager.h"
 #include "Kanto/PalletTown/PalletTown.h"
+#include "Camera.h"
 
 int main()
 {

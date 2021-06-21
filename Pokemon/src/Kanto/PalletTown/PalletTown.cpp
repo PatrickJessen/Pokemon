@@ -12,13 +12,11 @@ PalletTown::PalletTown(Window* window, Trainer* trainer, const char* filePath, c
 	this->tileSize = tileSize;
 	this->zoom = zoom;
 	this->trainer = trainer;
-	doorsPosition.emplace(0, std::vector<Vector2> {Vector2(21, 22)});
-	doorsPosition.emplace(0, std::vector<Vector2> {Vector2(12, 6)});
-	doorsPosition.emplace(0, std::vector<Vector2> {Vector2(12, 22)});
-	//doorsPosition.emplace(0, std::vector<Vector2> {Vector2(22, 21), Vector2(25, 32)});
-	//doorsPosition.emplace(1, std::vector<Vector2> {Vector2(13, 30), Vector2(13, 29)});
-	//doorsPosition.emplace(2, std::vector<Vector2> {Vector2(13, 12), Vector2(13, 11)});
-	//trainer = new Trainer(window, "Ash", "Assets/Trainers/MainTrainer.png", 200, 250, 62, 62);
+	doorsPosition.emplace(0, std::vector<Vector2> {Vector2(21 * zoom, 22 * zoom)});
+	doorsPosition.emplace(0, std::vector<Vector2> {Vector2(12 * zoom, 6 * zoom)});
+	doorsPosition.emplace(0, std::vector<Vector2> {Vector2(12 * zoom, 22 * zoom)});
+
+	isFullMap = false;
 	
 	//HandlePokeSpawns();
 }
@@ -48,7 +46,7 @@ Level* PalletTown::UpdateLevel()
 	case 0:
 	{
 		oakLab = new ProfOakLab(window, trainer, "Assets/Map/Pallet Town/OakLab.map", "Assets/Map/Pallet Town/oakroom.bmp", 1, 27, 27, 32, 1);
-		trainer->SetXYPos(300, 700);
+		trainer->SetXYPos(600, 700);
 		return oakLab;
 	}
 	break;
@@ -72,4 +70,5 @@ Level* PalletTown::UpdateLevel()
 
 void PalletTown::CustomMapUpdate()
 {
+	
 }

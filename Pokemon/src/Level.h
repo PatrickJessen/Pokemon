@@ -40,7 +40,8 @@ public:
 	void UpdateBackground();
 	void UpdateForeground();
 	void CleanMap();
-	void MovePlayer();
+	void MovePlayerInWorld();
+	void MovePlayerInside();
 
 	void SpawnPokemon();
 
@@ -54,8 +55,10 @@ public:
 	int zoom;
 	SDL_Rect dstRect;
 	SDL_Rect srcRect;
-protected:
 	Sprite* sprite;
+
+	bool isFullMap = false;
+protected:
 	Window* window;
 	/*std::vector<Pokemon*> pokeList;
 	std::map<int, std::vector<Pokemon*>> pokeSpawn;*/
