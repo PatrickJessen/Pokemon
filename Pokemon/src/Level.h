@@ -7,6 +7,7 @@
 #include "Sprite.h"
 #include "Collision.h"
 #include "Input.h"
+#include "Camera.h"
 
 enum class TileType
 {
@@ -30,7 +31,7 @@ public:
 
 public:
 	virtual void HandlePokeSpawns() = 0;
-	int LoadNewLevel();
+	int LoadNewLevel(int camX, int camY);
 	virtual Level* UpdateLevel() = 0;
 	virtual void CustomMapUpdate() = 0;
 	virtual void NewTrainerPosition() = 0;
@@ -46,7 +47,6 @@ public:
 
 	void SpawnPokemon();
 
-	SDL_Rect camera;
 	SDL_Texture* tex = nullptr;
 	Trainer* trainer;
 	int tileSize;
@@ -57,6 +57,7 @@ public:
 	SDL_Rect dstRect;
 	SDL_Rect srcRect;
 	Sprite* sprite;
+	Camera* camera = nullptr;
 
 	bool isFullMap = false;
 protected:

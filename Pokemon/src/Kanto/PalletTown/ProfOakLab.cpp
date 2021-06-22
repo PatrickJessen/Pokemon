@@ -22,7 +22,8 @@ ProfOakLab::ProfOakLab(Window* window, Trainer* trainer, const char* filePath, c
 	ballRect3 = { 710, 390, 40, 40 };
 
 	isFullMap = true;
-	camera = { 0, 0, tileSize * zoom, tileSize * zoom };
+	camera = new Camera(window, trainer, zoom, tileSize);
+	//camera = { 0, 0, tileSize * zoom, tileSize * zoom };
 	//InitMap();
 	//HandlePokeSpawns();
 }
@@ -47,7 +48,7 @@ void ProfOakLab::HandlePokeSpawns()
 
 Level* ProfOakLab::UpdateLevel()
 {
-	int x = LoadNewLevel();
+	int x = LoadNewLevel(camera->cam.x, camera->cam.y);
 	switch (x)
 	{
 	case 0:

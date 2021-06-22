@@ -27,7 +27,6 @@ void Trainer::UpdateTrainer()
 	collisionPoint = { trainerPos.x + trainerPos.w / 2, trainerPos.y + trainerPos.h / 2, 15, 5 };
 	SDL_RenderDrawRect(window->GetRender(), &collisionPoint);
 	SDL_RenderDrawRect(window->GetRender(), &interactPoint);
-	DrawTrainer();
 }
 
 SDL_Rect& Trainer::GetTrainerPos()
@@ -40,9 +39,9 @@ SDL_Rect& Trainer::GetInteractRect()
 	return interactPoint;
 }
 
-void Trainer::DrawTrainer()
+void Trainer::DrawTrainer(int camx, int camy)
 {
-	trainerPos = { xPos, yPos, width, height };
+	trainerPos = { xPos - camx, yPos - camy, width, height };
 	trainerSrc = { 0, 0, 60, 60 };
 	SDL_RenderCopy(window->GetRender(), sprite->tex, &trainerSrc, &trainerPos);
 }

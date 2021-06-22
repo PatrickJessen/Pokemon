@@ -23,6 +23,7 @@ void GameManager::Update()
         level->NewTrainerPosition();
 	}
 	level->UpdateBackground();
+    trainer->DrawTrainer(level->camera->cam.x, level->camera->cam.y);
     trainer->UpdateTrainer();
     MoveCamera();
     MovePlayer();
@@ -31,114 +32,51 @@ void GameManager::Update()
 
 void GameManager::MoveCamera()
 {
-    if (IsPlayerMidScreen())
-    {
-
-        ////level->camera = { trainer->xPos - window->GetWidth() / 2, trainer->yPos - window->GetHeight() / 2, level->tileSize * level->zoom, level->tileSize * level->zoom };
-        if (Input::KeyState(Key::W))
-        {
-            if (level->level[(trainer->collisionPoint.y / level->tileSize / level->zoom)][trainer->collisionPoint.x / level->tileSize / level->zoom].type != TileType::Collision)
-            {
-                //trainer->yPos--;
-                level->camera.y++;
-                //midScreenRect.y--;
-            }
-        }
-        else if (Input::KeyState(Key::S))
-        {
-            if (level->level[trainer->collisionPoint.y / level->tileSize / level->zoom + 1][trainer->collisionPoint.x / level->tileSize / level->zoom].type != TileType::Collision)
-            {
-                //trainer->yPos++;
-                level->camera.y--;
-                //midScreenRect.y++;
-            }
-        }
-    }
-    if (IsPlayerMidScreenX())
-    {
-
-        if (Input::KeyState(Key::A))
-        {
-            if (level->level[trainer->collisionPoint.y / level->tileSize / level->zoom][trainer->collisionPoint.x / level->tileSize / level->zoom - 1].type != TileType::Collision)
-            {
-
-                //trainer->xPos--;
-                level->camera.x++;
-                //midScreenRect.x--;
-            }
-        }
-        else if (Input::KeyState(Key::D))
-        {
-            if (level->level[trainer->collisionPoint.y / level->tileSize / level->zoom][trainer->collisionPoint.x / level->tileSize / level->zoom + 1].type != TileType::Collision)
-            {
-
-                //trainer->xPos++;
-                level->camera.x--;
-                //midScreenRect.x++;
-            }
-        }
-    }
-        ////trainer->SetXYPos(window->GetWidth() / 2, window->GetHeight() / 2);
-        trainer->GetTrainerPos() = { trainer->xPos - level->camera.x, trainer->yPos - level->camera.y, 62, 62 };
-        //std::cout << trainer->GetTileX(level->tileSize) << ", " << trainer->GetTileY(level->tileSize) << "\n";
+    
 }
 
 void GameManager::MovePlayer()
 {
-    if (!IsPlayerMidScreen())
+    int y = trainer->collisionPoint.y / level->tileSize / level->zoom;
+    int x = trainer->collisionPoint.x / level->tileSize / level->zoom;
+    int tileX = level->camera->cam.x / level->tileSize / 2;
+    int tileY = level->camera->cam.y / level->tileSize / 2;
+    if (Input::KeyState(Key::W))
     {
-        if (Input::KeyState(Key::W))
+        if (level->level[(y) - (tileY)][(x) - (tileX) +1].type != TileType::Collision)
         {
-            if (level->level[(trainer->collisionPoint.y / level->tileSize / level->zoom)][trainer->collisionPoint.x / level->tileSize / level->zoom].type != TileType::Collision)
-            {
-                trainer->yPos--;
-                midScreenRect.y--;
-
-                if (midScreenRect.y > 0 && midScreenRect.y < window->GetHeight() / 2)
-                    level->camera.y++;
-            }
-        }
-        else if (Input::KeyState(Key::S))
-        {
-            if (level->level[trainer->collisionPoint.y / level->tileSize / level->zoom + 1][trainer->collisionPoint.x / level->tileSize / level->zoom].type != TileType::Collision)
-            {
-                trainer->yPos++;
-                midScreenRect.y++;
-                if (midScreenRect.y > window->GetHeight() && midScreenRect.y < window->GetHeight())
-                    level->camera.y--;
-            }
+            trainer->yPos++;
         }
     }
-    if (!IsPlayerMidScreenX())
+    else if (Input::KeyState(Key::S))
     {
-
-        if (Input::KeyState(Key::A))
+        if (level->level[(y + 1) - (tileY)][(x) - (tileX)].type != TileType::Collision)
         {
-            if (level->level[trainer->collisionPoint.y / level->tileSize / level->zoom][trainer->collisionPoint.x / level->tileSize / level->zoom - 1].type != TileType::Collision)
-            {
-                trainer->xPos--;
-                midScreenRect.x--;
-                if (midScreenRect.x > 0 && midScreenRect.x < window->GetWidth() / 2)
-                    level->camera.x++;
-            }
-        }
-        else if (Input::KeyState(Key::D))
-        {
-            if (level->level[trainer->collisionPoint.y / level->tileSize / level->zoom][trainer->collisionPoint.x / level->tileSize / level->zoom + 1].type != TileType::Collision)
-            {
-
-                trainer->xPos++;
-                midScreenRect.x++;
-                if (midScreenRect.x > window->GetWidth() && midScreenRect.x < window->GetWidth())
-                    level->camera.x--;
-            }
+            trainer->yPos--;
         }
     }
+    else if (Input::KeyState(Key::A))
+    {
+        if (level->level[(y) - (tileY)][(x - 1) - (tileX)].type != TileType::Collision)
+        {
+            trainer->xPos++;
+        }
+    }
+    else if (Input::KeyState(Key::D))
+    {
+        if (level->level[(y) -(tileY)][(x + 1) - (tileX)].type != TileType::Collision)
+        {
+
+            trainer->xPos--;
+        }
+    }
+
+    //trainer->GetTrainerPos() = { trainer->GetXPos() - level->camera->cam.x, trainer->GetYPos() - level->camera->cam.y, 62, 62 };
 }
 
 bool GameManager::IsCameraOutOfBounce()
 {
-    if (level->camera.x > 0)
+    /*if (level->camera.x > 0)
     {
         level->camera.x = 0;
         return true;
@@ -147,7 +85,7 @@ bool GameManager::IsCameraOutOfBounce()
     {
         level->camera.y = 0;
         return true;
-    }
+    }*/
     /*else if (level->camera.y > level->camera.h / 2)
     {
         level->camera.y = level->camera.h / 2;
@@ -163,35 +101,12 @@ bool GameManager::IsCameraOutOfBounce()
 
 bool GameManager::IsPlayerMidScreen()
 {
-    SDL_RenderDrawRect(window->GetRender(), &midScreenRect);
-    if (midScreenRect.y == window->GetHeight() / 2  && !IsCameraOutOfBounce())
+    
+    if (trainer->GetXPos() == trainer->xPos - window->GetWidth() / 2 && trainer->GetYPos() == trainer->yPos - window->GetHeight() / 2)
     {
-        //midScreenRect = { window->GetWidth() / 2, window->GetHeight() / 2, trainer->GetWidth(), trainer->GetHeight() };
-        //std::cout << level->camera.w / 2 << ", " << level->camera.h / 2 << " : " << trainer->collisionPoint.x << ", " << trainer->collisionPoint.y << "\n";
+        //trainer->GetTrainerPos() = { trainer->xPos - level->camera.x, trainer->yPos - level->camera.y, 62, 62 };
         return true;
     }
-    //if (trainer->GetXPos() == trainer->xPos - window->GetWidth() / 2 && trainer->GetYPos() == trainer->yPos - window->GetHeight() / 2)
-    //{
-    //    //trainer->GetTrainerPos() = { trainer->xPos - level->camera.x, trainer->yPos - level->camera.y, 62, 62 };
-    //    return true;
-    //}
-    return false;
-}
-
-bool GameManager::IsPlayerMidScreenX()
-{
-    SDL_RenderDrawRect(window->GetRender(), &midScreenRect);
-    if (midScreenRect.x == window->GetWidth() / 2 && !IsCameraOutOfBounce())
-    {
-        //midScreenRect = { window->GetWidth() / 2, window->GetHeight() / 2, trainer->GetWidth(), trainer->GetHeight() };
-        //std::cout << level->camera.w / 2 << ", " << level->camera.h / 2 << " : " << trainer->collisionPoint.x << ", " << trainer->collisionPoint.y << "\n";
-        return true;
-    }
-    //if (trainer->GetXPos() == trainer->xPos - window->GetWidth() / 2 && trainer->GetYPos() == trainer->yPos - window->GetHeight() / 2)
-    //{
-    //    //trainer->GetTrainerPos() = { trainer->xPos - level->camera.x, trainer->yPos - level->camera.y, 62, 62 };
-    //    return true;
-    //}
     return false;
 }
 

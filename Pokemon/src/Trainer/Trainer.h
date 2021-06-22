@@ -10,7 +10,7 @@ public:
 	~Trainer();
 
 	void UpdateTrainer();
-	void DrawTrainer();
+	void DrawTrainer(int camx, int camy);
 	SDL_Rect& GetTrainerPos();
 	SDL_Rect& GetInteractRect();
 

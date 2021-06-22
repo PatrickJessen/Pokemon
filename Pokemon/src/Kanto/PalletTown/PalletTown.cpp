@@ -17,7 +17,7 @@ PalletTown::PalletTown(Window* window, Trainer* trainer, const char* filePath, c
 	doorsPosition.emplace(0, std::vector<Vector2> {Vector2(12 * zoom, 22 * zoom)});
 
 	isFullMap = false;
-	camera = { 0, 0, tileSize * zoom, tileSize * zoom };
+	camera = new Camera(window, trainer, zoom, tileSize);
 	//HandlePokeSpawns();
 }
 
@@ -35,7 +35,7 @@ void PalletTown::HandlePokeSpawns()
 
 Level* PalletTown::UpdateLevel()
 {
-	int x = LoadNewLevel();
+	int x = LoadNewLevel(camera->cam.x, camera->cam.y);
 	switch (x)
 	{
 	case 0:
@@ -65,12 +65,11 @@ Level* PalletTown::UpdateLevel()
 
 void PalletTown::CustomMapUpdate()
 {
-	
+	camera->Update();
 }
 
 void PalletTown::NewTrainerPosition()
 {
-	camera.x = -900;
-	camera.y = -640;
+	
 	//trainer->SetXYPos(500 - camera.x, 500 - camera.y);
 }

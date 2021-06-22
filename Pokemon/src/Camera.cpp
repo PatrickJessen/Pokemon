@@ -1,10 +1,11 @@
 #include "Camera.h"
 
-Camera::Camera(Window* window, Level* level, int zoomX, int zoomY)
+Camera::Camera(Window* window, Trainer* trainer, int zoom, int tileSize)
 {
     this->window = window;
-    this->level = level;
-    cam = { 0, 0, window->GetWidth(), window->GetHeight() };
+    this->tileSize = tileSize;
+    this->trainer = trainer;
+    cam = { trainer->GetTileX(tileSize), trainer->GetTileY(tileSize), tileSize * zoom, tileSize * zoom };
 }
 
 Camera::~Camera()
@@ -13,9 +14,10 @@ Camera::~Camera()
 
 void Camera::Update()
 {
-    cam.x = target->x;
-    cam.y = target->y;
-    if (cam.x < 0)
+    cam.x = (trainer->GetXPos()) - window->GetWidth() / 2;
+    cam.y = (trainer->GetYPos()) - window->GetHeight() / 2;
+
+    /*if (cam.x < 0)
     {
         cam.x = 0;
     }
@@ -30,13 +32,16 @@ void Camera::Update()
     if (cam.y > window->GetHeight() - cam.h)
     {
         cam.y = window->GetHeight() - cam.h;
-    }
+    }*/
+
+    //std::cout << trainer->GetTileX(tileSize) - cam.x / tileSize << ", " << trainer->GetTileY(tileSize) - cam.y / tileSize << "\n";
+
 }
 
-void Camera::SetLevel(Level* level)
-{
-    this->level = level;
-}
+//void Camera::SetLevel(Level* level)
+//{
+//    this->level = level;
+//}
 
 void Camera::SetTarget(SDL_Rect* target)
 {

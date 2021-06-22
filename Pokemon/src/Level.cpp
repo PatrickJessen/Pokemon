@@ -20,10 +20,10 @@ Level::~Level()
     delete sprite;
 }
 
-int Level::LoadNewLevel()
+int Level::LoadNewLevel(int camX, int camY)
 {
-    int y = trainer->GetTileX(tileSize);
-    int x = trainer->GetTileY(tileSize);
+    int y = trainer->GetTileX(tileSize) - camX / tileSize;
+    int x = trainer->GetTileY(tileSize) - camY / tileSize;
     //std::cout << x << ", " << y << "\n";
     for (int i = 0; i < doorsPosition.size(); i++)
     {
@@ -66,18 +66,18 @@ void Level::DrawBackground()
     for (int y = 0; y < height; y++)
         for (int x = 0; x < width; x++)
         {
-            dstRect = { x * tileSize * zoom + camera.x, y * tileSize * zoom + camera.y, camera.w, camera.h };
+            dstRect = { x * tileSize * zoom + camera->cam.x, y * tileSize * zoom + camera->cam.y, camera->cam.w, camera->cam.h };
             srcRect = { level[y][x].textureX * tileSize, level[y][x].textureY * tileSize, tileSize, tileSize };
             if (level[y][x].type != TileType::Depth)
             {
                 SDL_RenderCopy(window->GetRender(), sprite->tex, &srcRect, &dstRect);
             }
-            if (level[y][x].type == TileType::Collision)
+            /*if (level[y][x].type == TileType::Collision)
             {
-                SDL_Rect testing = { level[y][x].textureX * tileSize * zoom + camera.x, level[y][x].textureY * tileSize * zoom + camera.y, tileSize * zoom, tileSize * zoom };
+                SDL_Rect testing = { level[y][x].textureX * tileSize * zoom + camera->cam.x, level[y][x].textureY * tileSize * zoom + camera->cam.y, tileSize * zoom, tileSize * zoom };
                 SDL_SetRenderDrawColor(window->GetRender(), 255, 0, 0, 255);
                 SDL_RenderDrawRect(window->GetRender(), &testing);
-            }
+            }*/
         }
 }
 
@@ -88,7 +88,7 @@ void Level::DrawDepth()
         {
             if (level[y][x].type == TileType::Depth)
             {
-                dstRect = { x * tileSize * zoom + camera.x, y * tileSize * zoom + camera.y, camera.w, camera.h };
+                dstRect = { x * tileSize * zoom + camera->cam.x, y * tileSize * zoom + camera->cam.y, camera->cam.w, camera->cam.h };
                 srcRect = { level[y][x].textureX * tileSize, level[y][x].textureY * tileSize, tileSize, tileSize };
                 SDL_RenderCopy(window->GetRender(), sprite->tex, &srcRect, &dstRect);
             }
@@ -116,81 +116,6 @@ void Level::CleanMap()
     }
     delete[] level;
 }
-
-void Level::MovePlayerInWorld()
-{
-    //level->camera = { trainer->xPos - window->GetWidth() / 2, trainer->yPos - window->GetHeight() / 2, level->tileSize * level->zoom, level->tileSize * level->zoom };
-    //if (Input::KeyState(Key::W))
-    //{
-    //    if (level[(trainer->collisionPoint.y / tileSize / zoom)][trainer->collisionPoint.x / tileSize / zoom].type != TileType::Collision)
-    //    {
-    //        //trainer->yPos--;
-    //        camera.y++;
-    //    }
-    //}
-    //else if (Input::KeyState(Key::S))
-    //{
-    //    if (level[trainer->collisionPoint.y / tileSize / zoom + 1][trainer->collisionPoint.x / tileSize / zoom].type != TileType::Collision)
-    //    {
-    //        //trainer->yPos++;
-    //        camera.y--;
-    //    }
-    //}
-    //else if (Input::KeyState(Key::A))
-    //{
-    //    if (level[trainer->collisionPoint.y / tileSize / zoom][trainer->collisionPoint.x / tileSize / zoom - 1].type != TileType::Collision)
-    //    {
-
-    //        //trainer->xPos--;
-    //        camera.x++;
-    //    }
-    //}
-    //else if (Input::KeyState(Key::D))
-    //{
-    //    if (level[trainer->collisionPoint.y / tileSize / zoom][trainer->collisionPoint.x / tileSize / zoom + 1].type != TileType::Collision)
-    //    {
-
-    //        //trainer->xPos++;
-    //        camera.x--;
-    //    }
-    //}
-    ////trainer->SetXYPos(window->GetWidth() / 2, window->GetHeight() / 2);
-    //trainer->GetTrainerPos() = { trainer->xPos - camera.x, trainer->yPos - camera.y, 62, 62 };
-    //std::cout << trainer->GetTileX(tileSize) << ", " << trainer->GetTileY(tileSize) << "\n";
-}
-
-void Level::MovePlayerInside()
-{
-    /*if (Input::KeyState(Key::W))
-    {
-        if (level[(trainer->collisionPoint.y / tileSize / zoom - 1)][trainer->collisionPoint.x / tileSize / zoom].type != TileType::Collision)
-        {
-            trainer->yPos--;
-        }
-    }
-    else if (Input::KeyState(Key::S))
-    {
-        if (level[trainer->collisionPoint.y / tileSize / zoom + 1][trainer->collisionPoint.x / tileSize / zoom].type != TileType::Collision)
-        {
-            trainer->yPos++;
-        }
-    }
-    else if (Input::KeyState(Key::A))
-    {
-        if (level[trainer->collisionPoint.y / tileSize / zoom][trainer->collisionPoint.x / tileSize / zoom - 1].type != TileType::Collision)
-        {
-            trainer->xPos--;
-        }
-    }
-    else if (Input::KeyState(Key::D))
-    {
-        if (level[trainer->collisionPoint.y / tileSize / zoom][trainer->collisionPoint.x / tileSize / zoom + 1].type != TileType::Collision)
-        {
-            trainer->xPos++;
-        }
-    }*/
-}
-
 
 void Level::SpawnPokemon()
 {
