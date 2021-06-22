@@ -46,7 +46,7 @@ Level* PalletTown::UpdateLevel()
 	case 0:
 	{
 		oakLab = new ProfOakLab(window, trainer, "Assets/Map/Pallet Town/OakLab.map", "Assets/Map/Pallet Town/oakroom.bmp", 1, 27, 27, 32, 1);
-		trainer->SetXYPos(600, 700);
+		//trainer->SetXYPos(700, 700);
 		return oakLab;
 	}
 	break;
