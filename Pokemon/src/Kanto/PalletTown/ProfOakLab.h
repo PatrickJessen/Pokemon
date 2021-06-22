@@ -11,6 +11,7 @@ private:
 	virtual void HandlePokeSpawns() override;
 	virtual Level* UpdateLevel() override;
 	virtual void CustomMapUpdate() override;
+	virtual void NewTrainerPosition() override;
 
 	void PlacePokeballs();
 	void InteractWithPokeball();

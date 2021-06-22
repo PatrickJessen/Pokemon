@@ -11,6 +11,7 @@ public:
 	virtual void HandlePokeSpawns() override;
 	virtual Level* UpdateLevel() override;
 	virtual void CustomMapUpdate() override;
+	virtual void NewTrainerPosition() override;
 
 	Level* oakLab = nullptr;
 };

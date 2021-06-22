@@ -22,7 +22,7 @@ ProfOakLab::ProfOakLab(Window* window, Trainer* trainer, const char* filePath, c
 	ballRect3 = { 710, 390, 40, 40 };
 
 	isFullMap = true;
-
+	camera = { 0, 0, tileSize * zoom, tileSize * zoom };
 	//InitMap();
 	//HandlePokeSpawns();
 }
@@ -37,7 +37,12 @@ ProfOakLab::~ProfOakLab()
 
 void ProfOakLab::HandlePokeSpawns()
 {
+	/*Pokemon Bulbasaur(window, "Assets/Pokemons/Bulbasaur.png", "Bulbasaur", Type::GRASS, Type::POISON, 5);
+	Bulbasaur.InitStats(100, 100, 100, 100, 100, 100);*/
 
+	/*pokeSpawn.emplace(100, std::vector<Pokemon*> {new Pokemon(window, "Assets/Pokemons/Bulbasaur.png", "Bulbasaur", Type::GRASS, Type::POISON, 5),
+												  new Pokemon(window, "Assets/Pokemons/Charmander.png", "Charmander", Type::FIRE, 5),
+												  new Pokemon(window, "Assets/Pokemons/Squirtle.png", "Squirtle", Type::WATER, 5)});*/
 }
 
 Level* ProfOakLab::UpdateLevel()
@@ -48,8 +53,7 @@ Level* ProfOakLab::UpdateLevel()
 	case 0:
 	{
 		palletTown = new PalletTown(window, trainer, "Assets/Map/Pallet Town/PalletTown.map", "Assets/Map/Pallet Town/Pallet_Town.bmp", 1, 31, 31, 32, 2);
-
-		//palletTown->tex = palletTown->loadTexture();
+		
 		return palletTown;
 	}
 	break;
@@ -75,6 +79,11 @@ void ProfOakLab::CustomMapUpdate()
 {
 	PlacePokeballs();
 	InteractWithPokeball();
+}
+
+void ProfOakLab::NewTrainerPosition()
+{
+	trainer->SetXYPos(300, 500);
 }
 
 void ProfOakLab::PlacePokeballs()

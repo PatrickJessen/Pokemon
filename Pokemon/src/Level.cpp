@@ -40,7 +40,6 @@ int Level::LoadNewLevel()
 
 void Level::InitMap()
 {
-    camera = { 0, 0, tileSize * zoom, tileSize * zoom };
     sprite = new Sprite(texturePath, window);
     ReadFile inFile(filePath);
     level = new Tile*[width];
@@ -121,48 +120,48 @@ void Level::CleanMap()
 void Level::MovePlayerInWorld()
 {
     //level->camera = { trainer->xPos - window->GetWidth() / 2, trainer->yPos - window->GetHeight() / 2, level->tileSize * level->zoom, level->tileSize * level->zoom };
-    if (Input::KeyState(Key::W))
-    {
-        if (level[(trainer->collisionPoint.y / tileSize / zoom)][trainer->collisionPoint.x / tileSize / zoom].type != TileType::Collision)
-        {
-            //trainer->yPos--;
-            camera.y++;
-        }
-    }
-    else if (Input::KeyState(Key::S))
-    {
-        if (level[trainer->collisionPoint.y / tileSize / zoom + 1][trainer->collisionPoint.x / tileSize / zoom].type != TileType::Collision)
-        {
-            //trainer->yPos++;
-            camera.y--;
-        }
-    }
-    else if (Input::KeyState(Key::A))
-    {
-        if (level[trainer->collisionPoint.y / tileSize / zoom][trainer->collisionPoint.x / tileSize / zoom - 1].type != TileType::Collision)
-        {
+    //if (Input::KeyState(Key::W))
+    //{
+    //    if (level[(trainer->collisionPoint.y / tileSize / zoom)][trainer->collisionPoint.x / tileSize / zoom].type != TileType::Collision)
+    //    {
+    //        //trainer->yPos--;
+    //        camera.y++;
+    //    }
+    //}
+    //else if (Input::KeyState(Key::S))
+    //{
+    //    if (level[trainer->collisionPoint.y / tileSize / zoom + 1][trainer->collisionPoint.x / tileSize / zoom].type != TileType::Collision)
+    //    {
+    //        //trainer->yPos++;
+    //        camera.y--;
+    //    }
+    //}
+    //else if (Input::KeyState(Key::A))
+    //{
+    //    if (level[trainer->collisionPoint.y / tileSize / zoom][trainer->collisionPoint.x / tileSize / zoom - 1].type != TileType::Collision)
+    //    {
 
-            //trainer->xPos--;
-            camera.x++;
-        }
-    }
-    else if (Input::KeyState(Key::D))
-    {
-        if (level[trainer->collisionPoint.y / tileSize / zoom][trainer->collisionPoint.x / tileSize / zoom + 1].type != TileType::Collision)
-        {
+    //        //trainer->xPos--;
+    //        camera.x++;
+    //    }
+    //}
+    //else if (Input::KeyState(Key::D))
+    //{
+    //    if (level[trainer->collisionPoint.y / tileSize / zoom][trainer->collisionPoint.x / tileSize / zoom + 1].type != TileType::Collision)
+    //    {
 
-            //trainer->xPos++;
-            camera.x--;
-        }
-    }
-    //trainer->SetXYPos(window->GetWidth() / 2, window->GetHeight() / 2);
-    trainer->GetTrainerPos() = { trainer->xPos - camera.x, trainer->yPos - camera.y, 62, 62 };
-    std::cout << trainer->GetTileX(tileSize) << ", " << trainer->GetTileY(tileSize) << "\n";
+    //        //trainer->xPos++;
+    //        camera.x--;
+    //    }
+    //}
+    ////trainer->SetXYPos(window->GetWidth() / 2, window->GetHeight() / 2);
+    //trainer->GetTrainerPos() = { trainer->xPos - camera.x, trainer->yPos - camera.y, 62, 62 };
+    //std::cout << trainer->GetTileX(tileSize) << ", " << trainer->GetTileY(tileSize) << "\n";
 }
 
 void Level::MovePlayerInside()
 {
-    if (Input::KeyState(Key::W))
+    /*if (Input::KeyState(Key::W))
     {
         if (level[(trainer->collisionPoint.y / tileSize / zoom - 1)][trainer->collisionPoint.x / tileSize / zoom].type != TileType::Collision)
         {
@@ -189,7 +188,7 @@ void Level::MovePlayerInside()
         {
             trainer->xPos++;
         }
-    }
+    }*/
 }
 
 

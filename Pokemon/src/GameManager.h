@@ -11,13 +11,17 @@ public:
 public:
 	void Update();
 private:
+	void MoveCamera();
 	void MovePlayer();
-	void CameraControl();
+	bool IsCameraOutOfBounce();
 	bool IsPlayerMidScreen();
+	bool IsPlayerMidScreenX();
+	bool InRange(unsigned low, unsigned high);
 public:
 	Level* level;
 	Trainer* trainer;
 	Camera* camera;
+	SDL_Rect midScreenRect;
 private:
 	Window* window;
 };

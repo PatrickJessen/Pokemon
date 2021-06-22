@@ -14,6 +14,7 @@ int main()
 	//test->tex = test->loadTexture();
 	manager->level = test;
 	manager->level->InitMap();
+	manager->midScreenRect = { window->GetWidth() / 2, window->GetHeight() / 2, manager->trainer->GetWidth(), manager->trainer->GetHeight() };
 	while (true)
 	{
 		manager->Update();

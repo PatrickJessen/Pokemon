@@ -33,6 +33,7 @@ public:
 	int LoadNewLevel();
 	virtual Level* UpdateLevel() = 0;
 	virtual void CustomMapUpdate() = 0;
+	virtual void NewTrainerPosition() = 0;
 	void InitMap();
 	void LoadLayers();
 	void DrawBackground();
