@@ -1,6 +1,7 @@
 #pragma once
 #include "Level.h"
 #include "Camera.h"
+#include "GUI/GUI.h"
 
 class GameManager
 {
@@ -11,11 +12,7 @@ public:
 public:
 	void Update();
 private:
-	void MoveCamera();
 	void MovePlayer();
-	bool IsCameraOutOfBounce();
-	bool IsPlayerMidScreen();
-	bool IsPlayerMidScreenX();
 	bool InRange(unsigned low, unsigned high);
 public:
 	Level* level;

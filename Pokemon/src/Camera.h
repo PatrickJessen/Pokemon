@@ -10,9 +10,11 @@ public:
 
 public:
 	void Update();
+	SDL_Rect* SetCamera();
 	//void SetLevel(Level* level);
 	void SetTarget(SDL_Rect* target);
 	SDL_Rect cam;
+	SDL_Rect point;
 private:
 	SDL_Rect* target;
 	Window* window;

@@ -36,12 +36,12 @@ public:
 	SDL_Rect interactPoint;
 	Sprite* sprite;
 	Pokemon* GetPokemonByName(const char* pokemonName);
+	SDL_Rect trainerPos;
 private:
 	void MoveTrainer();
 
 
 private:
-	SDL_Rect trainerPos;
 	SDL_Rect trainerSrc;
 	std::vector<Pokemon*> pc;
 	const char* texturePath;

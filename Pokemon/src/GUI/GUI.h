@@ -13,4 +13,5 @@ public:
 	static void MessageBox(int x, int y, int w, int h, std::string message);
 	static void ChangeFont(int value);
 	static void ChangeFontSize(int x, int y, int w, int h);
+	static void MainMenu();
 };

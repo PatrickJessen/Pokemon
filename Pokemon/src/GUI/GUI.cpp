@@ -1,16 +1,22 @@
 #include "GUI.h"
+#include "../Input.h"
 
 static SDL_Rect rect;
 static SDL_Rect fontSize;
 static Sprite* boxSprite;
+static Sprite* menuSprite = nullptr;
+static Sprite* pokeHolder = nullptr;
 static Window* window;
 static TTF_Font* font;
 static SDL_Texture* texture;
+static bool menuClicked;
 
 void GUI::Init(Window* windows)
 {
 	window = windows;
 	ChangeFont(12);
+	menuSprite = new Sprite("Assets/GUI/Menu.png", window);
+	pokeHolder = new Sprite("Assets/GUI/PokeHolder.png", window);
 }
 
 void GUI::MessageBox(int x, int y, int w, int h, std::string message)
@@ -37,4 +43,13 @@ void GUI::ChangeFont(int value)
 void GUI::ChangeFontSize(int x, int y, int w, int h)
 {
 	fontSize = { x, y, w, h };
+}
+
+void GUI::MainMenu()
+{
+	SDL_Rect menuRect = { 0, window->GetHeight() - 400, 400, 400 };
+	SDL_Rect pokeRect = { 10, 10, 200, 50 };
+
+	SDL_RenderCopy(window->GetRender(), menuSprite->tex, NULL, &menuRect);
+	SDL_RenderCopy(window->GetRender(), pokeHolder->tex, NULL, &pokeRect);
 }

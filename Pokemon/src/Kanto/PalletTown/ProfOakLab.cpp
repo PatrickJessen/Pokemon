@@ -80,6 +80,8 @@ void ProfOakLab::CustomMapUpdate()
 {
 	PlacePokeballs();
 	InteractWithPokeball();
+	camera->SetCamera()->x = 0;
+	camera->SetCamera()->y = 0;
 }
 
 void ProfOakLab::NewTrainerPosition()

@@ -22,8 +22,8 @@ Level::~Level()
 
 int Level::LoadNewLevel(int camX, int camY)
 {
-    int y = trainer->GetTileX(tileSize) - camX / tileSize;
-    int x = trainer->GetTileY(tileSize) - camY / tileSize;
+    int y = trainer->GetTileX(tileSize) + camX / tileSize;
+    int x = trainer->GetTileY(tileSize) + camY / tileSize;
     //std::cout << x << ", " << y << "\n";
     for (int i = 0; i < doorsPosition.size(); i++)
     {
@@ -66,7 +66,7 @@ void Level::DrawBackground()
     for (int y = 0; y < height; y++)
         for (int x = 0; x < width; x++)
         {
-            dstRect = { x * tileSize * zoom + camera->cam.x, y * tileSize * zoom + camera->cam.y, camera->cam.w, camera->cam.h };
+            dstRect = { x * tileSize * zoom - camera->cam.x, y * tileSize * zoom - camera->cam.y, tileSize * zoom, tileSize * zoom };
             srcRect = { level[y][x].textureX * tileSize, level[y][x].textureY * tileSize, tileSize, tileSize };
             if (level[y][x].type != TileType::Depth)
             {
@@ -74,7 +74,7 @@ void Level::DrawBackground()
             }
             /*if (level[y][x].type == TileType::Collision)
             {
-                SDL_Rect testing = { level[y][x].textureX * tileSize * zoom + camera->cam.x, level[y][x].textureY * tileSize * zoom + camera->cam.y, tileSize * zoom, tileSize * zoom };
+                SDL_Rect testing = { level[y][x].textureX * tileSize * zoom - camera->cam.x, level[y][x].textureY * tileSize * zoom - camera->cam.y, tileSize * zoom, tileSize * zoom };
                 SDL_SetRenderDrawColor(window->GetRender(), 255, 0, 0, 255);
                 SDL_RenderDrawRect(window->GetRender(), &testing);
             }*/
@@ -88,7 +88,7 @@ void Level::DrawDepth()
         {
             if (level[y][x].type == TileType::Depth)
             {
-                dstRect = { x * tileSize * zoom + camera->cam.x, y * tileSize * zoom + camera->cam.y, camera->cam.w, camera->cam.h };
+                dstRect = { x * tileSize * zoom - camera->cam.x, y * tileSize * zoom - camera->cam.y, tileSize * zoom, tileSize * zoom };
                 srcRect = { level[y][x].textureX * tileSize, level[y][x].textureY * tileSize, tileSize, tileSize };
                 SDL_RenderCopy(window->GetRender(), sprite->tex, &srcRect, &dstRect);
             }
