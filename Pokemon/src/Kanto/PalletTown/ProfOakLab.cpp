@@ -148,14 +148,14 @@ void ProfOakLab::ChoosePokemon(const char* name)
 			std::cout << "you chose " << name << "\n";
 			for (int i = 0; i < 5; i++)
 			{
-				if (trainer->pokebag[i] == NULL)
+				if (trainer->pokebag[i] == NULL && !hasBeenChosen)
 				{
 					Pokemon* poke = CreateStarterPokemon(name);
 					trainer->pokebag[i] = poke;
 					trainer->starterPokemon = name;
+					hasBeenChosen = true;
 				}
 			}
-			hasBeenChosen = true;
 			break;
 		}
 		else if (Input::KeyPressed(Key::N))

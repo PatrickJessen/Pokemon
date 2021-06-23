@@ -5,6 +5,7 @@ Pokemon::Pokemon(Window* window, const char* spritePath, std::string name, Type 
 	this->name = name;
 	this->type = type;
 	this->level = level;
+	this->window = window;
 
 	experience = 0;
 	requiredExp *= level;
@@ -18,6 +19,7 @@ Pokemon::Pokemon(Window* window, const char* spritePath, std::string name, Type 
 	this->type = type;
 	this->type2 = type2;
 	this->level = level * level;
+	this->window = window;
 
 	experience = 0;
 	requiredExp *= level;
@@ -62,6 +64,11 @@ bool Pokemon::LevelUp()
 		return true;
 	}
 	return false;
+}
+
+void Pokemon::DrawPokemon(SDL_Rect rect)
+{
+	SDL_RenderCopy(window->GetRender(), sprite->tex, NULL, &rect);
 }
 
 void Pokemon::OnUpdate()

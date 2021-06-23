@@ -7,13 +7,15 @@ static Sprite* boxSprite;
 static Sprite* menuSprite = nullptr;
 static Sprite* pokeHolder = nullptr;
 static Window* window;
+static Trainer* trainer;
 static TTF_Font* font;
 static SDL_Texture* texture;
 static bool menuClicked;
 
-void GUI::Init(Window* windows)
+void GUI::Init(Window* windows, Trainer* trainers)
 {
 	window = windows;
+	trainer = trainers;
 	ChangeFont(12);
 	menuSprite = new Sprite("Assets/GUI/Menu.png", window);
 	pokeHolder = new Sprite("Assets/GUI/PokeHolder.png", window);
@@ -47,9 +49,21 @@ void GUI::ChangeFontSize(int x, int y, int w, int h)
 
 void GUI::MainMenu()
 {
-	SDL_Rect menuRect = { 0, window->GetHeight() - 400, 400, 400 };
-	SDL_Rect pokeRect = { 10, 10, 200, 50 };
+	SDL_Rect menuRect = { 0, window->GetHeight() - 400, 450, 400 };
+	SDL_Rect pokeRect = { 10, 10, 50, 50 };
+
+	for (int i = 0; i < 5; i++)
+	{
+		pokeRect.y += 50;
+		if (trainer->pokebag[i] != NULL)
+		{
+			trainer->pokebag[i]->DrawPokemon(pokeRect);
+		}
+		else
+		{
+			SDL_RenderCopy(window->GetRender(), pokeHolder->tex, NULL, &pokeRect);
+		}
+	}
 
 	SDL_RenderCopy(window->GetRender(), menuSprite->tex, NULL, &menuRect);
-	SDL_RenderCopy(window->GetRender(), pokeHolder->tex, NULL, &pokeRect);
 }

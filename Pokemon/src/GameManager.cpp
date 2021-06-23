@@ -4,7 +4,7 @@ GameManager::GameManager(Window* window)
 {
     this->window = window;
     trainer = new Trainer(window, "Ash", "Assets/Trainers/MainTrainer.png", window->GetWidth() / 2, window->GetHeight() / 2, 62, 62, 100);
-    GUI::Init(window);
+    GUI::Init(window, trainer);
 }
 
 GameManager::~GameManager()

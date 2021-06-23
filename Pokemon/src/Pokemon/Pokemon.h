@@ -31,7 +31,7 @@ public:
 	std::string GetName();
 
 	bool LevelUp();
-	void DrawPokemon();
+	void DrawPokemon(SDL_Rect rect);
 	void OnUpdate();
 
 	Stats stats;
@@ -47,4 +47,5 @@ private:
 	int experience;
 	int requiredExp;
 	std::string name;
+	Window* window;
 };
