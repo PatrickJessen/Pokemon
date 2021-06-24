@@ -40,7 +40,7 @@ Window::Window(const char* title, int xpos, int ypos, int width, int height, boo
 }
 Window::~Window()
 {
-	delete draw;
+	
 }
 
 bool Window::Running()

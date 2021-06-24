@@ -1,5 +1,8 @@
 #include "ProfOakLab.h"
 #include "PalletTown.h"
+#include "../../Pokemon/Charmander.h"
+#include "../../Pokemon/Bulbasaur.h"
+#include "../../Pokemon/Squirtle.h"
 
 ProfOakLab::ProfOakLab(Window* window, Trainer* trainer, const char* filePath, const char* texturePath, int zoneLevel, int width, int height, int tileSize, int zoom)
 {
@@ -23,6 +26,9 @@ ProfOakLab::ProfOakLab(Window* window, Trainer* trainer, const char* filePath, c
 
 	isFullMap = true;
 	camera = new Camera(window, trainer, zoom, tileSize);
+
+	profOak = new Trainer(window, "Prof. Oak,", "Assets/Trainers/ProOak.png", 350, 200, 60, 60, 0);
+	profOak->SetSrcRect(0, 73, 50, 55);
 	//camera = { 0, 0, tileSize * zoom, tileSize * zoom };
 	//InitMap();
 	//HandlePokeSpawns();
@@ -34,6 +40,7 @@ ProfOakLab::~ProfOakLab()
 	delete sprite;
 	//CleanMap();
 	delete UpdateLevel();
+	delete profOak;
 }
 
 void ProfOakLab::HandlePokeSpawns()
@@ -82,6 +89,18 @@ void ProfOakLab::CustomMapUpdate()
 	InteractWithPokeball();
 	camera->SetCamera()->x = 0;
 	camera->SetCamera()->y = 0;
+	profOak->DrawTrainer(camera->cam.x, camera->cam.y);
+	profOak->UpdateTrainer();
+
+	if (trainer->yPos == profOak->yPos)
+	{
+		trainer->movementIsDisabled = true;
+		trainer->yPos += 1;
+	}
+	else
+		trainer->movementIsDisabled = false;
+
+	//std::cout << trainer->GetTileY(tileSize) + camera->cam.x / tileSize << ", " << profOak->GetTileY(tileSize) + camera->cam.x / tileSize << "\n";
 }
 
 void ProfOakLab::NewTrainerPosition()
@@ -136,6 +155,14 @@ void ProfOakLab::InteractWithPokeball()
 			ChoosePokemon("Bulbasaur");
 		}
 	}
+	else if (Collision::AABB(trainer->GetInteractRect(), ballRect3) && Input::KeyPressed(Key::E) || Collision::AABB(trainer->GetInteractRect(), ballRect2) && Input::KeyPressed(Key::E) || Collision::AABB(trainer->GetInteractRect(), ballRect1) && Input::KeyPressed(Key::E))
+	{
+		while (!Input::KeyPressed(Key::SPACE))
+		{
+			GUI::MessageBox("Better not be greedy!");
+			window->Update();
+		}
+	}
 }
 
 void ProfOakLab::ChoosePokemon(const char* name)
@@ -170,15 +197,15 @@ Pokemon* ProfOakLab::CreateStarterPokemon(std::string name)
 {
 	if (name == "Charmander")
 	{
-		return new Pokemon(window, pokemon->GetPath(), name, Type::FIRE, 5);
+		return new Charmander(window, pokemon->GetPath(), name, Type::FIRE, 5);
 	}
 	else if (name == "Squirtle")
 	{
-		return new Pokemon(window, pokemon->GetPath(), name, Type::WATER, 5);
+		return new Squirtle(window, pokemon->GetPath(), name, Type::WATER, 5);
 	}
 	else if (name == "Bulbasaur")
 	{
-		return new Pokemon(window, pokemon->GetPath(), name, Type::GRASS, 5);
+		return new Bulbasaur(window, pokemon->GetPath(), name, Type::GRASS, 5);
 	}
 	return nullptr;
 }

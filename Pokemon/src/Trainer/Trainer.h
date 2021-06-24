@@ -2,6 +2,7 @@
 #include "../Window.h"
 #include "../Pokemon/Pokemon.h"
 #include "../Sprite.h"
+#include "../Collision.h"
 
 class Trainer
 {
@@ -27,14 +28,21 @@ public:
 	void SetTileY(int value, int tileSize);
 	int GetMoney();
 	void SetMoney(int value);
+	void SetSrcRect(int x, int y, int w, int h);
+	bool CollisionWithTrainer(int trainerColX, int trainerColY, int tileSize, int zoom);
 	SDL_Rect collisionPoint;
 	int xPos;
 	int yPos;
 	Pokemon* pokebag[5];
 	const char* starterPokemon;
+	bool movementIsDisabled;
+	const char* spriteBack;
+	const char* spriteFront;
 
 	SDL_Rect interactPoint;
 	Sprite* sprite;
+	Sprite* frontSprite;
+	Sprite* backSprite;
 	Pokemon* GetPokemonByName(const char* pokemonName);
 	SDL_Rect trainerPos;
 private:

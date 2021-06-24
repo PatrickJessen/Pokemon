@@ -11,8 +11,9 @@ class GUI
 {
 public:
 	static void Init(Window* windows, Trainer* trainers);
-	static void MessageBox(int x, int y, int w, int h, std::string message);
+	static void MessageBox(std::string message);
 	static void ChangeFont(int value);
 	static void ChangeFontSize(int x, int y, int w, int h);
 	static void MainMenu();
+	static void BattleSceneGUI(Trainer* ash, Trainer* gary);
 };

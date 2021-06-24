@@ -117,6 +117,21 @@ void Level::CleanMap()
     delete[] level;
 }
 
+void Level::Battle()
+{
+    while (!isBattleOver)
+    {
+        GUI::BattleSceneGUI(trainer, gary);
+
+        
+        window->Update();
+    }
+}
+
+void Level::BattleUIController()
+{
+}
+
 void Level::SpawnPokemon()
 {
 	/*int x = rand() % 100;

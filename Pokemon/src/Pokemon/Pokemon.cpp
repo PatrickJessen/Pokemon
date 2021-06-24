@@ -46,9 +46,9 @@ int Pokemon::GetLevel()
 	return level;
 }
 
-void Pokemon::SetLevel(int value)
+void Pokemon::AddLevel()
 {
-	level = value * level;
+	level++;
 }
 
 

@@ -1,5 +1,9 @@
 #include "PalletTown.h"
 #include "ProfOakLab.h"
+#include "../../GUI/GUI.h"
+#include "../../Pokemon/Charmander.h"
+#include "../../Pokemon/Bulbasaur.h"
+#include "../../Pokemon/Squirtle.h"
 
 PalletTown::PalletTown(Window* window, Trainer* trainer, const char* filePath, const char* texturePath, int zoneLevel, int width, int height, int tileSize, int zoom)
 {
@@ -18,6 +22,7 @@ PalletTown::PalletTown(Window* window, Trainer* trainer, const char* filePath, c
 
 	isFullMap = false;
 	camera = new Camera(window, trainer, zoom, tileSize);
+
 	//HandlePokeSpawns();
 }
 
@@ -66,10 +71,67 @@ Level* PalletTown::UpdateLevel()
 void PalletTown::CustomMapUpdate()
 {
 	camera->Update();
+	if (trainer->starterPokemon != NULL && trainer->GetTileY(tileSize) + camera->cam.y / tileSize <= 16)
+	{
+		if (gary == nullptr)
+		{
+			gary = new Trainer(window, "gary", "Assets/Trainers/Gary.png", -100, -100, 62, 62, 0);
+			gary->SetSrcRect(0, 73, 50, 55);
+			gary->SetXYPos(trainer->xPos, 900);
+			AddGaryPoke();
+		}
+		/*while (camera->cam.y != gary->yPos)
+		{
+			camera->cam.y--;
+			window->Update();
+			SDL_Delay(2);
+		}*/
+		camera->SetTarget(gary);
+		gary->DrawTrainer(camera->cam.x, camera->cam.y);
+		if (gary->yPos > trainer->yPos + trainer->GetHeight())
+		{
+			trainer->movementIsDisabled = true;
+			gary->yPos--;
+			SDL_Delay(5);
+		}
+		else
+		{
+			GUI::MessageBox("Get ready for battle!");
+			if (Input::KeyPressed(Key::SPACE))
+			{
+				while (true) //<-- victory || !victory
+				{
+					Battle();
+				}
+			}
+			trainer->movementIsDisabled = false;
+		}
+	}
+	else
+		trainer->movementIsDisabled = false;
+
+
+	//std::cout << trainer->GetTileX(tileSize) + camera->cam.x / tileSize << ", " << trainer->GetTileY(tileSize) + camera->cam.y / tileSize << "\n";
 }
 
 void PalletTown::NewTrainerPosition()
 {
 	
 	//trainer->SetXYPos(500 - camera.x, 500 - camera.y);
+}
+
+void PalletTown::AddGaryPoke()
+{
+	if (trainer->starterPokemon == "Charmander")
+	{
+		gary->pokebag[0] = new Bulbasaur(window, "Assets/Pokemons/Front/Squirtle.png", "Squirtle", Type::GRASS, 5);
+	}
+	else if (trainer->starterPokemon == "Squirtle")
+	{
+		gary->pokebag[0] = new Charmander(window, "Assets/Pokemons/Front/Bulbasaur.png", "Bulbasaur", Type::FIRE, 5);
+	}
+	else if (trainer->starterPokemon == "Bulbasaur")
+	{
+		gary->pokebag[0] = new Squirtle(window, "Assets/Pokemons/Front/Charmander.png", "Charmander", Type::WATER, 5);
+	}
 }

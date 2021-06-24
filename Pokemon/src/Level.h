@@ -8,6 +8,7 @@
 #include "Collision.h"
 #include "Input.h"
 #include "Camera.h"
+#include "GUI/GUI.h"
 
 enum class TileType
 {
@@ -42,13 +43,15 @@ public:
 	void UpdateBackground();
 	void UpdateForeground();
 	void CleanMap();
-	void MovePlayerInWorld();
-	void MovePlayerInside();
+
+	void Battle();
+	void BattleUIController();
 
 	void SpawnPokemon();
 
 	SDL_Texture* tex = nullptr;
 	Trainer* trainer;
+	Trainer* gary = nullptr;
 	int tileSize;
 	Tile** level;
 	int windowWidth;
@@ -70,4 +73,5 @@ protected:
 	int zoneLevel;
 	const char* filePath;
 	const char* texturePath;
+	bool isBattleOver = false;
 };

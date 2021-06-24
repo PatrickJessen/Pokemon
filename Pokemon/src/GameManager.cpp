@@ -29,6 +29,9 @@ void GameManager::Update()
     trainer->UpdateTrainer();
     level->UpdateForeground();
     GUI::MainMenu();
+    //GUI::BattleSceneGUI(trainer, trainer);
+    //GUI::ChangeFontSize(window->GetWidth() / 2 - 210, window->GetHeight() - 100, 300, 100);
+    //GUI::MessageBox("Hello World!");
 }
 
 void GameManager::MovePlayer()
@@ -39,32 +42,35 @@ void GameManager::MovePlayer()
     int x = trainer->collisionPoint.x / level->tileSize / level->zoom;
     int tileX = level->camera->cam.x / level->tileSize / 2;
     int tileY = level->camera->cam.y / level->tileSize / 2;
-    if (Input::KeyState(Key::W))
+    if (!trainer->movementIsDisabled)
     {
-        if (level->level[(y) + (tileY)][(x) + (tileX)].type != TileType::Collision)
+        if (Input::KeyState(Key::W))
         {
-            trainer->yPos--;
+            if (level->level[(y)+(tileY)][(x)+(tileX)].type != TileType::Collision)
+            {
+                trainer->yPos--;
+            }
         }
-    }
-    else if (Input::KeyState(Key::S))
-    {
-        if (level->level[(y + 1) + (tileY)][(x) + (tileX)].type != TileType::Collision)
+        else if (Input::KeyState(Key::S))
         {
-            trainer->yPos++;
+            if (level->level[(y + 1) + (tileY)][(x)+(tileX)].type != TileType::Collision)
+            {
+                trainer->yPos++;
+            }
         }
-    }
-    else if (Input::KeyState(Key::A))
-    {
-        if (level->level[(y) + (tileY)][(x - 1) + (tileX)].type != TileType::Collision)
+        else if (Input::KeyState(Key::A))
         {
-            trainer->xPos--;
+            if (level->level[(y)+(tileY)][(x - 1) + (tileX)].type != TileType::Collision)
+            {
+                trainer->xPos--;
+            }
         }
-    }
-    else if (Input::KeyState(Key::D))
-    {
-        if (level->level[(y) +(tileY)][(x + 1) + (tileX)].type != TileType::Collision)
+        else if (Input::KeyState(Key::D))
         {
-            trainer->xPos++;
+            if (level->level[(y)+(tileY)][(x + 1) + (tileX)].type != TileType::Collision)
+            {
+                trainer->xPos++;
+            }
         }
     }
     //std::cout << trainer->GetTileX(level->tileSize) << ", " << trainer->GetTileX(level->tileSize) << "\n";

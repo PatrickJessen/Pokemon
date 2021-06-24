@@ -34,7 +34,7 @@ void Camera::Update()
         cam.y = window->GetHeight() + cam.w * 2;
     }
 
-    std::cout << trainer->GetTileX(tileSize) + cam.x / tileSize << ", " << trainer->GetTileY(tileSize) + cam.y / tileSize << "\n";
+    //std::cout << trainer->GetTileX(tileSize) + cam.x / tileSize << ", " << trainer->GetTileY(tileSize) + cam.y / tileSize << "\n";
 
 }
 
@@ -48,7 +48,7 @@ SDL_Rect* Camera::SetCamera()
 //    this->level = level;
 //}
 
-void Camera::SetTarget(SDL_Rect* target)
+void Camera::SetTarget(Trainer* target)
 {
-    this->target = target;
+    this->trainer = target;
 }

@@ -4,8 +4,6 @@
 #include "SDL_image.h"
 #include <iostream>
 
-typedef class Draw Draw;
-
 class Window
 {
 private:
@@ -14,7 +12,6 @@ private:
 	float deltaTime;
 
 public:
-	Draw* draw = nullptr;
 	Window(const char* title, int xpos, int ypos, int width, int height, bool fullscreen);
 	~Window();
 

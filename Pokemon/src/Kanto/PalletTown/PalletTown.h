@@ -13,6 +13,8 @@ public:
 	virtual void CustomMapUpdate() override;
 	virtual void NewTrainerPosition() override;
 
+	void AddGaryPoke();
+
 	Level* oakLab = nullptr;
 };
 

@@ -12,7 +12,7 @@ public:
 	void Update();
 	SDL_Rect* SetCamera();
 	//void SetLevel(Level* level);
-	void SetTarget(SDL_Rect* target);
+	void SetTarget(Trainer* target);
 	SDL_Rect cam;
 	SDL_Rect point;
 private:

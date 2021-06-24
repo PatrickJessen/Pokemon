@@ -18,5 +18,6 @@ enum class Type
     GROUND,
     ROCK,
     DRAGON,
-    FIGHTING
+    FIGHTING,
+    STATUS
 };

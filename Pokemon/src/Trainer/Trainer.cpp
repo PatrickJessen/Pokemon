@@ -13,6 +13,8 @@ Trainer::Trainer(Window* window, std::string name, const char* texturePath, int 
 	this->money = money;
 
 	sprite = new Sprite(texturePath, window);
+	
+	trainerSrc = { 0, 0, 60, 60 };
 }
 
 Trainer::~Trainer()
@@ -26,8 +28,8 @@ void Trainer::UpdateTrainer()
 	
 	interactPoint = { trainerPos.x + trainerPos.w / 2, trainerPos.y, 5, 5 };
 	collisionPoint = { trainerPos.x + trainerPos.w / 2, trainerPos.y + trainerPos.h / 2, 15, 5 };
-	SDL_RenderDrawRect(window->GetRender(), &collisionPoint);
-	SDL_RenderDrawRect(window->GetRender(), &interactPoint);
+	/*SDL_RenderDrawRect(window->GetRender(), &collisionPoint);
+	SDL_RenderDrawRect(window->GetRender(), &interactPoint);*/
 	
 }
 
@@ -45,7 +47,6 @@ void Trainer::DrawTrainer(int camx, int camy)
 {
 	//SDL_Rect test = { xPos - camx, yPos - camy, width, height };
 	trainerPos = { xPos - camx, yPos - camy, width, height };
-	trainerSrc = { 0, 0, 60, 60 };
 	SDL_RenderCopy(window->GetRender(), sprite->tex, &trainerSrc, &trainerPos);
 }
 
@@ -112,7 +113,7 @@ void Trainer::SetTileX(int value, int tileSize)
 
 void Trainer::SetTileY(int value, int tileSize)
 {
-	yPos = value / tileSize;
+	yPos = tileSize - value;
 }
 
 int Trainer::GetMoney()
@@ -123,4 +124,21 @@ int Trainer::GetMoney()
 void Trainer::SetMoney(int value)
 {
 	money += value;
+}
+
+void Trainer::SetSrcRect(int x, int y, int w, int h)
+{
+	trainerSrc = { x, y, w, h };
+}
+
+bool Trainer::CollisionWithTrainer(int trainerColX, int trainerColY, int tileSize, int zoom)
+{
+	int x = trainerColX / tileSize / zoom;
+	int y = trainerColY / tileSize / zoom;
+
+	if (true)
+	{
+
+	}
+	return false;
 }

@@ -26,6 +26,7 @@ private:
 	SDL_Rect ballRect1;
 	SDL_Rect ballRect2;
 	SDL_Rect ballRect3;
+	Trainer* profOak = nullptr;
 
 private:
 	bool hasBeenChosen = false;

@@ -154,9 +154,12 @@
     <ClCompile Include="src\FileHandler\sfh_read_file.cpp" />
     <ClCompile Include="src\FileHandler\sfh_write_file.cpp" />
     <ClCompile Include="src\Level.cpp" />
+    <ClCompile Include="src\Pokemon\Bulbasaur.cpp" />
+    <ClCompile Include="src\Pokemon\Charmander.cpp" />
     <ClCompile Include="src\Pokemon\Moves\Move.cpp" />
     <ClCompile Include="src\Pokemon\Moves\AttackType.cpp" />
     <ClCompile Include="src\Pokemon\Pokemon.cpp" />
+    <ClCompile Include="src\Pokemon\Squirtle.cpp" />
     <ClCompile Include="src\Sprite.cpp" />
     <ClCompile Include="src\Kanto\PalletTown\PalletTown.cpp" />
     <ClCompile Include="src\Input.cpp" />
@@ -177,11 +180,13 @@
     <ClInclude Include="src\FileHandler\simple_file_handler.h" />
     <ClInclude Include="src\Kanto\PalletTown\CollisionMap.h" />
     <ClInclude Include="src\Pokemon\Charmander.h" />
+    <ClInclude Include="src\Pokemon\Bulbasaur.h" />
     <ClInclude Include="src\Pokemon\Moves\Move.h" />
     <ClInclude Include="src\Pokemon\Moves\AttackMove.h" />
     <ClInclude Include="src\Pokemon\Moves\AttackType.h" />
     <ClInclude Include="src\Pokemon\Moves\Type.h" />
     <ClInclude Include="src\Pokemon\Pokemon.h" />
+    <ClInclude Include="src\Pokemon\Squirtle.h" />
     <ClInclude Include="src\Sprite.h" />
     <ClInclude Include="src\Kanto\PalletTown\PalletTown.h" />
     <ClInclude Include="src\Input.h" />

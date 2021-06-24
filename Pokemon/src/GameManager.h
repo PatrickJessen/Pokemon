@@ -17,6 +17,7 @@ private:
 public:
 	Level* level;
 	Trainer* trainer;
+	Trainer* gary = nullptr;
 	Camera* camera;
 	SDL_Rect midScreenRect;
 private:
