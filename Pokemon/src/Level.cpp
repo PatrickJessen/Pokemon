@@ -122,7 +122,12 @@ void Level::Battle()
     while (!isBattleOver)
     {
         GUI::BattleSceneGUI(trainer, gary);
-
+        //ShowFirstAvailablePokemon();
+        //Attack();
+        //CheckForVictory();
+        //if won add exp
+        //CheckForLevelUp();
+        //if level up CheckForEvolve();
         
         window->Update();
     }

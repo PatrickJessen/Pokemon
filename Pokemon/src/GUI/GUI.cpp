@@ -7,6 +7,7 @@ static Sprite* boxSprite;
 static Sprite* menuSprite = nullptr;
 static Sprite* pokeHolder = nullptr;
 static Sprite* battleSprite = nullptr;
+static Sprite* optionSprite = nullptr;
 static Window* window;
 static Trainer* trainer;
 static TTF_Font* font;
@@ -88,6 +89,7 @@ void GUI::BattleSceneGUI(Trainer* ash, Trainer* gary)
 			battleSprite = new Sprite("Assets/Battle/Battle Backgrounds.png", window);
 			gary->frontSprite = new Sprite("Assets/Trainers/garyFront.png", window);
 			ash->backSprite = new Sprite("Assets/Trainers/AshBack.png", window);
+			optionSprite = new Sprite("Assets/GUI/Options.png", window);
 		}
 
 		SDL_Rect dstRect = { 0, 0, window->GetWidth(), window->GetHeight() };
@@ -138,25 +140,6 @@ void GUI::BattleSceneGUI(Trainer* ash, Trainer* gary)
 			window->Clear();
 			SDL_RenderCopy(window->GetRender(), battleSprite->tex, &srcRect, &dstRect);
 		}
-
-		ashRect = { -30, 650, 400, 250 };
-		garyRect = { 1260, 250, 200, 250 };
-		while (ashRect.x < 130 && garyRect.x > 1100)
-		{
-			if (ashRect.x < 130 && garyRect.x > 1100)
-			{
-				ashRect.x++;
-				garyRect.x--;
-			}
-			SDL_RenderCopy(window->GetRender(), ash->pokebag[0]->sprite->tex, NULL, &ashRect);
-			SDL_RenderCopy(window->GetRender(), gary->pokebag[0]->sprite->tex, NULL, &garyRect);
-			window->Update();
-			window->Clear();
-			SDL_RenderCopy(window->GetRender(), battleSprite->tex, &srcRect, &dstRect);
-			SDL_Delay(3);
-		}
-		SDL_RenderCopy(window->GetRender(), ash->pokebag[0]->sprite->tex, NULL, &ashRect);
-		SDL_RenderCopy(window->GetRender(), gary->pokebag[0]->sprite->tex, NULL, &garyRect);
 		animIsOver = true;
 	}
 }
