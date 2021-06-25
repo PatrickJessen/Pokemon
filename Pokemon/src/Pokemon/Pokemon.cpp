@@ -33,17 +33,22 @@ Pokemon::~Pokemon()
 
 void Pokemon::InitStats(int hp, int attack, int defense, float spAtk, float spDef, int speed)
 {
-	hp = stats.HP;
-	attack = stats.Attack;
-	defense = stats.Defense;
-	spAtk = stats.SPATK;
-	spDef = stats.SPDEF;
-	speed = stats.Speed;
+	stats.HP = hp;
+	stats.Attack = attack;
+	stats.Defense = defense;
+	stats.SPATK = spAtk;
+	stats.SPDEF = spDef;
+	stats.Speed = speed;
 }
 
 int Pokemon::GetLevel()
 {
 	return level;
+}
+
+int Pokemon::GetHP()
+{
+	return stats.HP;
 }
 
 void Pokemon::AddLevel()
@@ -73,4 +78,12 @@ void Pokemon::DrawPokemon(SDL_Rect rect)
 
 void Pokemon::OnUpdate()
 {
+}
+
+std::string Pokemon::GetMoveName()
+{
+	for (int i = 0; i < 3; i++)
+	{
+		return moveset[i]->GetMoveName();
+	}
 }

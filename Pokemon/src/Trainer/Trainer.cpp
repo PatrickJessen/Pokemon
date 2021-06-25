@@ -30,6 +30,7 @@ void Trainer::UpdateTrainer()
 	collisionPoint = { trainerPos.x + trainerPos.w / 2, trainerPos.y + trainerPos.h / 2, 15, 5 };
 	/*SDL_RenderDrawRect(window->GetRender(), &collisionPoint);
 	SDL_RenderDrawRect(window->GetRender(), &interactPoint);*/
+	OnPokemonCatched();
 	
 }
 
@@ -141,4 +142,15 @@ bool Trainer::CollisionWithTrainer(int trainerColX, int trainerColY, int tileSiz
 
 	}
 	return false;
+}
+
+void Trainer::OnPokemonCatched()
+{
+	for (int i = 0; i < 5; i++)
+	{
+		if (pokebag[i] != NULL)
+		{
+			pokebag[i]->OnPokemonCreate();
+		}
+	}
 }

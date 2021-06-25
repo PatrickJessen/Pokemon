@@ -8,6 +8,7 @@ static Sprite* menuSprite = nullptr;
 static Sprite* pokeHolder = nullptr;
 static Sprite* battleSprite = nullptr;
 static Sprite* optionSprite = nullptr;
+static Sprite* attackBox = nullptr;
 static Window* window;
 static Trainer* trainer;
 static TTF_Font* font;
@@ -40,6 +41,17 @@ void GUI::MessageBox(std::string message)
 	texture = SDL_CreateTextureFromSurface(window->GetRender(), text);
 
 	SDL_RenderCopy(window->GetRender(), boxSprite->tex, NULL, &rect);
+	SDL_RenderCopy(window->GetRender(), texture, NULL, &fontSize);
+	SDL_FreeSurface(text);
+	SDL_DestroyTexture(texture);
+}
+
+void GUI::Text(std::string message)
+{
+	SDL_Color white = { 255, 255, 255 };
+	SDL_Surface* text = TTF_RenderText_Solid(font, message.c_str(), white);
+
+	texture = SDL_CreateTextureFromSurface(window->GetRender(), text);
 	SDL_RenderCopy(window->GetRender(), texture, NULL, &fontSize);
 	SDL_FreeSurface(text);
 	SDL_DestroyTexture(texture);
@@ -140,6 +152,72 @@ void GUI::BattleSceneGUI(Trainer* ash, Trainer* gary)
 			window->Clear();
 			SDL_RenderCopy(window->GetRender(), battleSprite->tex, &srcRect, &dstRect);
 		}
+
+		int temp = 0;
+		int temp2 = 0;
+
+		for (int i = 0; i < 5; i++)
+		{
+			if (trainer->pokebag[i]->stats.HP > 0)
+			{
+				trainer->pokebag[i]->pokeRect = { -30, 650, 400, 250 };
+				trainer->pokebag[i]->isInBattle = true;
+				temp = i;
+				break;
+			}
+		}
+		for (int i = 0; i < 5; i++)
+		{
+			if (gary->pokebag[i]->stats.HP > 0)
+			{
+				gary->pokebag[i]->pokeRect = { 1260, 200, 150, 200 };
+				gary->pokebag[i]->isInBattle = true;
+				temp2 = i;
+				break;
+			}
+		}
+		while (trainer->pokebag[temp]->pokeRect.x < 130 && gary->pokebag[temp2]->pokeRect.x > 1100)
+		{
+			trainer->pokebag[temp]->pokeRect.x++;
+			gary->pokebag[temp2]->pokeRect.x--;
+			SDL_RenderCopy(window->GetRender(), gary->pokebag[temp2]->sprite->tex, NULL, &gary->pokebag[temp2]->pokeRect);
+			SDL_RenderCopy(window->GetRender(), trainer->pokebag[temp]->sprite->tex, NULL, &trainer->pokebag[temp]->pokeRect);
+			window->Update();
+			window->Clear();
+			SDL_RenderCopy(window->GetRender(), battleSprite->tex, &srcRect, &dstRect);
+		}
+		SDL_RenderCopy(window->GetRender(), trainer->pokebag[temp]->sprite->tex, NULL, &trainer->pokebag[temp]->pokeRect);
+		SDL_RenderCopy(window->GetRender(), gary->pokebag[temp2]->sprite->tex, NULL, &gary->pokebag[temp2]->pokeRect);
+		SDL_Rect optionRect = { 1200, 700, 400, 200 };
+		SDL_RenderCopy(window->GetRender(), optionSprite->tex, NULL, &optionRect);
 		animIsOver = true;
+	}
+}
+
+void GUI::ShowMoves(Trainer* ash)
+{
+	if (attackBox == nullptr)
+	{
+		attackBox = new Sprite("Assets/GUI/Attacks.png", window);
+	}
+	SDL_Rect boxSize = { 1200, 370, 400, 350 };
+	SDL_RenderCopy(window->GetRender(), attackBox->tex, NULL, &boxSize);
+	//attack 1
+	int yTemp = 380;
+	for (int i = 0; i < 5; i++)
+	{
+		if (ash->pokebag[i]->isInBattle)
+		{
+			for (int x = 0; x < 3; x++)
+			{
+				if (ash->pokebag[i]->moveset[x] != NULL)
+				{
+					ChangeFontSize(1250, yTemp, 200, 20);
+					yTemp += 50;
+					Text(ash->pokebag[i]->moveset[x]->GetMoveName());
+				}
+			}
+			return;
+		}
 	}
 }

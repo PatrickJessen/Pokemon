@@ -25,9 +25,10 @@ public:
 
 public:
 	void InitStats(int hp, int attack, int defense, float spAtk, float spDef, int speed);
-	virtual void OnPokemonCreate() = 0;
+	virtual bool OnPokemonCreate() = 0;
 	virtual void Evolve(int level) = 0;
 	int GetLevel();
+	int GetHP();
 	void AddLevel();
 	std::string GetName();
 
@@ -35,14 +36,18 @@ public:
 	void DrawPokemon(SDL_Rect rect);
 	void OnUpdate();
 
+	std::string GetMoveName();
+
 	Stats stats;
 	Type type;
 	Type type2;
 	std::map<int, Move*> learnableMoves;
 	SDL_Rect pokeRect;
 	Sprite* sprite;
-protected:
+	bool created = false;
+	bool isInBattle = false;
 	Move* moveset[3];
+protected:
 	Pokemon* evolution = nullptr;
 private:
 	int level;

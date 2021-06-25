@@ -24,7 +24,6 @@ ProfOakLab::ProfOakLab(Window* window, Trainer* trainer, const char* filePath, c
 	ballRect2 = { 650, 390, 40, 40 };
 	ballRect3 = { 710, 390, 40, 40 };
 
-	isFullMap = true;
 	camera = new Camera(window, trainer, zoom, tileSize);
 
 	profOak = new Trainer(window, "Prof. Oak,", "Assets/Trainers/ProOak.png", 350, 200, 60, 60, 0);
@@ -179,6 +178,7 @@ void ProfOakLab::ChoosePokemon(const char* name)
 				{
 					Pokemon* poke = CreateStarterPokemon(name);
 					trainer->pokebag[i] = poke;
+					trainer->pokebag[i]->OnPokemonCreate();
 					trainer->starterPokemon = name;
 					hasBeenChosen = true;
 				}

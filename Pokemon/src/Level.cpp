@@ -122,7 +122,7 @@ void Level::Battle()
     while (!isBattleOver)
     {
         GUI::BattleSceneGUI(trainer, gary);
-        //ShowFirstAvailablePokemon();
+        BattleUIController();
         //Attack();
         //CheckForVictory();
         //if won add exp
@@ -133,8 +133,24 @@ void Level::Battle()
     }
 }
 
+void Level::Attack()
+{
+}
+
 void Level::BattleUIController()
 {
+    if (Input::KeyPressed(Key::NUM_1))
+    {
+        showMoves = true;
+    }
+    if (showMoves)
+    {
+        GUI::ShowMoves(trainer);
+        if (Input::KeyPressed(Key::NUM_1))
+        {
+            Attack(/*move*/);
+        }
+    }
 }
 
 void Level::SpawnPokemon()

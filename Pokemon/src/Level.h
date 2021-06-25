@@ -45,6 +45,8 @@ public:
 	void CleanMap();
 
 	void Battle();
+	void ShowFirstAvailablePokemon();
+	void Attack();
 	void BattleUIController();
 
 	void SpawnPokemon();
@@ -62,7 +64,7 @@ public:
 	Sprite* sprite;
 	Camera* camera = nullptr;
 
-	bool isFullMap = false;
+	bool pokeIsInBattle = false;
 protected:
 	Window* window;
 	/*std::vector<Pokemon*> pokeList;
@@ -74,4 +76,7 @@ protected:
 	const char* filePath;
 	const char* texturePath;
 	bool isBattleOver = false;
+	
+private:
+	bool showMoves = false;
 };

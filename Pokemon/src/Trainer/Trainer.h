@@ -30,6 +30,8 @@ public:
 	void SetMoney(int value);
 	void SetSrcRect(int x, int y, int w, int h);
 	bool CollisionWithTrainer(int trainerColX, int trainerColY, int tileSize, int zoom);
+
+	void OnPokemonCatched();
 	SDL_Rect collisionPoint;
 	int xPos;
 	int yPos;

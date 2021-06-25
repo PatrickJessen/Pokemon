@@ -1,11 +1,13 @@
 #pragma once
 #include "Type.h"
+#include <string>
 
 enum class Moves
 {
 	TACKLE, GROWL, SCRATCH, EMBER, LEER, RAGE, SLASH, FLAMETHROWER, FIRESPIN, LEECHSEED, VINEWHIP, POISONPOWDER, RAZORLEAF, GROWTH, SLEEPPOWDER, SOLARBEAM, TAILWHIP,
     BUBBLE, WATERGUN, BITE, WITHDRAW, SKULLBASH, HYDROPUMP
 };
+
 
 class Pokemon;
 class Move
@@ -17,6 +19,10 @@ public:
 
 public:
     virtual void UseMove(Pokemon* pokemon);
+    std::string GetMoveName();
+    Type GetType();
+    int GetAccuracy();
+    int GetDamage();
 
 private:
     Moves moves;
