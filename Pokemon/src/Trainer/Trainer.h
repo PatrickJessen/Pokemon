@@ -30,6 +30,9 @@ public:
 	void SetMoney(int value);
 	void SetSrcRect(int x, int y, int w, int h);
 	bool CollisionWithTrainer(int trainerColX, int trainerColY, int tileSize, int zoom);
+	Pokemon* GetPokemonByName(const char* pokemonName);
+	void SetBattlePokemon(Pokemon* poke);
+	Pokemon* GetBattlePokemon();
 
 	void OnPokemonCatched();
 	SDL_Rect collisionPoint;
@@ -45,13 +48,13 @@ public:
 	Sprite* sprite;
 	Sprite* frontSprite;
 	Sprite* backSprite;
-	Pokemon* GetPokemonByName(const char* pokemonName);
 	SDL_Rect trainerPos;
 private:
 	void MoveTrainer();
 
 
 private:
+	Pokemon* battlePokemon = nullptr;
 	SDL_Rect trainerSrc;
 	std::vector<Pokemon*> pc;
 	const char* texturePath;

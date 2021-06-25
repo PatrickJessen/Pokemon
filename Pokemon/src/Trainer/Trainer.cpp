@@ -56,6 +56,16 @@ Pokemon* Trainer::GetPokemonByName(const char* pokemonName)
 	return nullptr;
 }
 
+void Trainer::SetBattlePokemon(Pokemon* poke)
+{
+	battlePokemon = poke;
+}
+
+Pokemon* Trainer::GetBattlePokemon()
+{
+	return battlePokemon;
+}
+
 void Trainer::MoveTrainer()
 {
 

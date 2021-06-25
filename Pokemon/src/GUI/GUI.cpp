@@ -153,16 +153,12 @@ void GUI::BattleSceneGUI(Trainer* ash, Trainer* gary)
 			SDL_RenderCopy(window->GetRender(), battleSprite->tex, &srcRect, &dstRect);
 		}
 
-		int temp = 0;
-		int temp2 = 0;
-
 		for (int i = 0; i < 5; i++)
 		{
 			if (trainer->pokebag[i]->stats.HP > 0)
 			{
 				trainer->pokebag[i]->pokeRect = { -30, 650, 400, 250 };
-				trainer->pokebag[i]->isInBattle = true;
-				temp = i;
+				trainer->SetBattlePokemon(trainer->pokebag[i]);
 				break;
 			}
 		}
@@ -171,23 +167,22 @@ void GUI::BattleSceneGUI(Trainer* ash, Trainer* gary)
 			if (gary->pokebag[i]->stats.HP > 0)
 			{
 				gary->pokebag[i]->pokeRect = { 1260, 200, 150, 200 };
-				gary->pokebag[i]->isInBattle = true;
-				temp2 = i;
+				gary->SetBattlePokemon(gary->pokebag[i]);
 				break;
 			}
 		}
-		while (trainer->pokebag[temp]->pokeRect.x < 130 && gary->pokebag[temp2]->pokeRect.x > 1100)
+		while (trainer->GetBattlePokemon()->pokeRect.x < 130 && gary->GetBattlePokemon()->pokeRect.x > 1100)
 		{
-			trainer->pokebag[temp]->pokeRect.x++;
-			gary->pokebag[temp2]->pokeRect.x--;
-			SDL_RenderCopy(window->GetRender(), gary->pokebag[temp2]->sprite->tex, NULL, &gary->pokebag[temp2]->pokeRect);
-			SDL_RenderCopy(window->GetRender(), trainer->pokebag[temp]->sprite->tex, NULL, &trainer->pokebag[temp]->pokeRect);
+			trainer->GetBattlePokemon()->pokeRect.x++;
+			gary->GetBattlePokemon()->pokeRect.x--;
+			SDL_RenderCopy(window->GetRender(), gary->GetBattlePokemon()->sprite->tex, NULL, &gary->GetBattlePokemon()->pokeRect);
+			SDL_RenderCopy(window->GetRender(), trainer->GetBattlePokemon()->sprite->tex, NULL, &trainer->GetBattlePokemon()->pokeRect);
 			window->Update();
 			window->Clear();
 			SDL_RenderCopy(window->GetRender(), battleSprite->tex, &srcRect, &dstRect);
 		}
-		SDL_RenderCopy(window->GetRender(), trainer->pokebag[temp]->sprite->tex, NULL, &trainer->pokebag[temp]->pokeRect);
-		SDL_RenderCopy(window->GetRender(), gary->pokebag[temp2]->sprite->tex, NULL, &gary->pokebag[temp2]->pokeRect);
+		SDL_RenderCopy(window->GetRender(), trainer->GetBattlePokemon()->sprite->tex, NULL, &trainer->GetBattlePokemon()->pokeRect);
+		SDL_RenderCopy(window->GetRender(), gary->GetBattlePokemon()->sprite->tex, NULL, &gary->GetBattlePokemon()->pokeRect);
 		SDL_Rect optionRect = { 1200, 700, 400, 200 };
 		SDL_RenderCopy(window->GetRender(), optionSprite->tex, NULL, &optionRect);
 		animIsOver = true;
@@ -204,20 +199,18 @@ void GUI::ShowMoves(Trainer* ash)
 	SDL_RenderCopy(window->GetRender(), attackBox->tex, NULL, &boxSize);
 	//attack 1
 	int yTemp = 380;
-	for (int i = 0; i < 5; i++)
+
+	if (ash->GetBattlePokemon() != nullptr)
 	{
-		if (ash->pokebag[i]->isInBattle)
+		for (int x = 0; x < 3; x++)
 		{
-			for (int x = 0; x < 3; x++)
+			if (ash->GetBattlePokemon()->moveset[x] != NULL)
 			{
-				if (ash->pokebag[i]->moveset[x] != NULL)
-				{
-					ChangeFontSize(1250, yTemp, 200, 20);
-					yTemp += 50;
-					Text(ash->pokebag[i]->moveset[x]->GetMoveName());
-				}
+				ChangeFontSize(1250, yTemp, 200, 20);
+				yTemp += 50;
+				Text(ash->GetBattlePokemon()->moveset[x]->GetMoveName());
 			}
-			return;
 		}
+		return;
 	}
 }

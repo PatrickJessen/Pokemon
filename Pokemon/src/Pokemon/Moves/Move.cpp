@@ -65,7 +65,7 @@ std::string Move::GetMoveName()
     case Moves::HYDROPUMP: return "Hydropump";
         break;
     }
-    return NULL;
+    return "";
 }
 
 Type Move::GetType()
