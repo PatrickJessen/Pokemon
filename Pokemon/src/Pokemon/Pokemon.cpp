@@ -1,4 +1,5 @@
 #include "Pokemon.h"
+#include "../Pokemon/Moves/AttackType.h"
 
 Pokemon::Pokemon(Window* window, const char* spritePath, std::string name, Type type, int level)
 {
@@ -11,6 +12,7 @@ Pokemon::Pokemon(Window* window, const char* spritePath, std::string name, Type 
 	requiredExp *= level;
 
 	sprite = new Sprite(spritePath, window);
+	InitMultipliers();
 }
 
 Pokemon::Pokemon(Window* window, const char* spritePath, std::string name, Type type, Type type2, int level)
@@ -25,6 +27,7 @@ Pokemon::Pokemon(Window* window, const char* spritePath, std::string name, Type 
 	requiredExp *= level;
 
 	sprite = new Sprite(spritePath, window);
+	InitMultipliers();
 }
 
 Pokemon::~Pokemon()
@@ -33,8 +36,8 @@ Pokemon::~Pokemon()
 
 void Pokemon::InitStats(int hp, int attack, int defense, float spAtk, float spDef, int speed)
 {
-	stats.HP = hp;
-	stats.Attack = attack;
+	stats.HP = hp + level + 10;
+	stats.Attack = attack + level;
 	stats.Defense = defense;
 	stats.SPATK = spAtk;
 	stats.SPDEF = spDef;
@@ -86,4 +89,10 @@ std::string Pokemon::GetMoveName()
 	{
 		return moveset[i]->GetMoveName();
 	}
+}
+
+void Pokemon::InitMultipliers()
+{
+	AttackType::atkMoves.emplace(Type::FIRE, std::vector<AttackMove> {AttackMove(Type::FIRE, 0.5f), AttackMove(Type::WATER, 0.5f), AttackMove(Type::GRASS, 2.0f), AttackMove(Type::ICE, 2.0f), AttackMove(Type::BUG, 2.0f), AttackMove(Type::ROCK, 0.5f), AttackMove(Type::DRAGON, 0.5f), });
+	//add rest
 }

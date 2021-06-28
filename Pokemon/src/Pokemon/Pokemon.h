@@ -55,4 +55,5 @@ private:
 	int requiredExp;
 	std::string name;
 	Window* window;
+	void InitMultipliers();
 };
