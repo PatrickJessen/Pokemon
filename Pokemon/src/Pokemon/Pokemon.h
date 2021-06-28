@@ -47,6 +47,7 @@ public:
 	bool created = false;
 	bool isInBattle = false;
 	Move* moveset[3];
+	Move* currentMove = nullptr;
 protected:
 	Pokemon* evolution = nullptr;
 private:

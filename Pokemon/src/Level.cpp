@@ -1,5 +1,6 @@
 #include "Level.h"
 #include "FileHandler/simple_file_handler.h"
+#include "Battle.h"
 #define INDEX y * width + x
 
 using namespace SimpleFileHandler;
@@ -122,7 +123,7 @@ void Level::Battle()
     while (!isBattleOver)
     {
         GUI::BattleSceneGUI(trainer, gary);
-        BattleUIController();
+        Battle::StartBattle(trainer, gary, window);
         //Attack();
         //CheckForVictory();
         //if won add exp
@@ -133,42 +134,6 @@ void Level::Battle()
     }
 }
 
-void Level::Attack()
-{
-    if (trainer->GetBattlePokemon() != nullptr)
-    {    
-        while (!Input::KeyPressed(Key::ESCAPE))
-        {
-            if (Input::KeyPressed(Key::NUM_1))
-            {
-                std::cout << gary->GetBattlePokemon()->stats.HP << "\n";
-                trainer->GetBattlePokemon()->moveset[0]->UseMove(gary->GetBattlePokemon());
-                std::cout << gary->GetBattlePokemon()->stats.HP << "\n";
-            }
-            else if (Input::KeyPressed(Key::NUM_2))
-            {
-                std::cout << gary->GetBattlePokemon()->stats.HP << "\n";
-                trainer->GetBattlePokemon()->moveset[1]->UseMove(gary->GetBattlePokemon());
-                std::cout << gary->GetBattlePokemon()->stats.HP << "\n";
-            }
-
-            window->Update();
-        }
-    }
-}
-
-void Level::BattleUIController()
-{
-    if (Input::KeyPressed(Key::NUM_1))
-    {
-        showMoves = true;
-    }
-    if (showMoves)
-    {
-        GUI::ShowMoves(trainer);
-        Attack(/*move*/);
-    }
-}
 
 void Level::SpawnPokemon()
 {

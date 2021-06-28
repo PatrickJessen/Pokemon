@@ -91,7 +91,7 @@ void PalletTown::CustomMapUpdate()
 		if (gary->yPos > trainer->yPos + trainer->GetHeight())
 		{
 			trainer->movementIsDisabled = true;
-			gary->yPos--;
+			gary->yPos-=2;
 			SDL_Delay(5);
 		}
 		else
