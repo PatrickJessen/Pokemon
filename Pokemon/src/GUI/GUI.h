@@ -17,5 +17,7 @@ public:
 	static void ChangeFontSize(int x, int y, int w, int h);
 	static void MainMenu();
 	static void BattleSceneGUI(Trainer* ash, Trainer* gary);
+	static void RenderBattleScene(Trainer* ash, Trainer* gary);
 	static void ShowMoves(Trainer* ash);
+	static void ShowHealthbar(Trainer* ash, Trainer* gary);
 };

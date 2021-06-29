@@ -15,6 +15,13 @@ static TTF_Font* font;
 static SDL_Texture* texture;
 static bool menuClicked;
 static bool animIsOver = false;
+static SDL_Rect dstRect;
+static SDL_Rect srcRect;
+static SDL_Rect ashRect;
+static SDL_Rect garyRect;
+static SDL_Rect optionRect;
+static SDL_Rect ashHealthBar;
+static SDL_Rect garyHealthBar;
 
 void GUI::Init(Window* windows, Trainer* trainers)
 {
@@ -104,12 +111,12 @@ void GUI::BattleSceneGUI(Trainer* ash, Trainer* gary)
 			optionSprite = new Sprite("Assets/GUI/Options.png", window);
 		}
 
-		SDL_Rect dstRect = { 0, 0, window->GetWidth(), window->GetHeight() };
-		SDL_Rect srcRect = { 260 * 2, 45 * 4 + 10, 255, 100 };
+		dstRect = { 0, 0, window->GetWidth(), window->GetHeight() };
+		srcRect = { 260 * 2, 45 * 4 + 10, 255, 100 };
 
 		SDL_RenderCopy(window->GetRender(), battleSprite->tex, &srcRect, &dstRect);
-		SDL_Rect ashRect = { -30, 650, 400, 250 };
-		SDL_Rect garyRect = { 1260, 0, 300, 500 };
+		ashRect = { -30, 650, 400, 250 };
+		garyRect = { 1260, 0, 300, 500 };
 
 		while (ashRect.x < 130 && garyRect.x > 1100)
 		{
@@ -183,10 +190,18 @@ void GUI::BattleSceneGUI(Trainer* ash, Trainer* gary)
 		}
 		SDL_RenderCopy(window->GetRender(), trainer->GetBattlePokemon()->sprite->tex, NULL, &trainer->GetBattlePokemon()->pokeRect);
 		SDL_RenderCopy(window->GetRender(), gary->GetBattlePokemon()->sprite->tex, NULL, &gary->GetBattlePokemon()->pokeRect);
-		SDL_Rect optionRect = { 1200, 700, 400, 200 };
+		optionRect = { 1200, 700, 400, 200 };
 		SDL_RenderCopy(window->GetRender(), optionSprite->tex, NULL, &optionRect);
 		animIsOver = true;
 	}
+}
+
+void GUI::RenderBattleScene(Trainer* ash, Trainer* gary)
+{
+	SDL_RenderCopy(window->GetRender(), battleSprite->tex, &srcRect, &dstRect);
+	SDL_RenderCopy(window->GetRender(), trainer->GetBattlePokemon()->sprite->tex, NULL, &trainer->GetBattlePokemon()->pokeRect);
+	SDL_RenderCopy(window->GetRender(), gary->GetBattlePokemon()->sprite->tex, NULL, &gary->GetBattlePokemon()->pokeRect);
+	SDL_RenderCopy(window->GetRender(), optionSprite->tex, NULL, &optionRect);
 }
 
 void GUI::ShowMoves(Trainer* ash)
@@ -213,4 +228,26 @@ void GUI::ShowMoves(Trainer* ash)
 		}
 		return;
 	}
+}
+
+void GUI::ShowHealthbar(Trainer* ash, Trainer* gary)
+{
+	int width = 200;
+	SDL_Rect healthBar = { 800, 700, width, 30 };
+	SDL_RenderDrawRect(window->GetRender(), &healthBar);
+	/*for (int i = 0; i < healthBar.w; i++)
+	{
+		ashHealthBar.x = ash->GetBattlePokemon()->stats.HP % healthBar.w;
+	}*/
+	ashHealthBar = { healthBar.x, healthBar.y, (ash->GetBattlePokemon()->stats.HP / width) * width, healthBar.h };
+	/*if (ash->GetBattlePokemon()->stats.HP < 0)
+	{
+		ashHealthBar.w = 0;
+	}
+	if (ashHealthBar.w > width)
+	{
+		ashHealthBar.w = width;
+	}*/
+	SDL_SetRenderDrawColor(window->GetRender(), 255, 0, 0, 255);
+	SDL_RenderFillRect(window->GetRender(), &ashHealthBar);
 }

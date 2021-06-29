@@ -7,7 +7,7 @@ bool Bulbasaur::OnPokemonCreate()
 		moveset[0] = new Move(Moves::GROWL, Type::STATUS, 100, 0);
 		moveset[1] = new Move(Moves::TACKLE, Type::NORMAL, 100, 40);
 
-		InitStats(45, 49, 49, 65, 65, 45);
+		InitStats(500, 49, 49, 65, 65, 45);
 		learnableMoves.emplace(7, new Move(Moves::LEECHSEED, Type::GRASS, 90, 0));
 		learnableMoves.emplace(13, new Move(Moves::VINEWHIP, Type::GRASS, 100, 45));
 		learnableMoves.emplace(20, new Move(Moves::POISONPOWDER, Type::POISON, 75, 0));

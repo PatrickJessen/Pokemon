@@ -5,13 +5,15 @@
 class Battle
 {
 public:
-	static void StartBattle(Trainer* ash, Trainer* gary, Window* window);
+	static void StartBattle(Trainer* s_ash, Trainer* s_gary, Window* s_window);
 	static void StartBattle(Trainer* ash, Pokemon* poke, Window* window);
 
 private:
-	static void ShowMoves(Trainer* ash);
-	static void GetCurrentMove(Trainer* ash, Window* window);
-	static void GetRandomMove(Trainer* gary);
-	static bool DoIGoFirst(Trainer* ash, Trainer* gary);
+	static void ShowMoves();
+	static void GetCurrentMove();
+	static void GetRandomMove();
+	static void ClearMoveTab();
+	static void SetMoveToNULL();
+	static bool DoIGoFirst();
 
 };
